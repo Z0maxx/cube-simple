@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+label,
+button,
+input {
+    cursor: pointer;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    background-color: var(--color-red-200);
+    border-color: var(--color-red-400);
+    cursor: pointer;
+}
+
+label:has(input:checked) {
+    background-color: var(--color-green-200);
+    border-color: var(--color-green-400)
+}
+
+#layer-controls button,
+#cube-controls button,
+#solve-wrap button,
+#solve-wrap label,
+#solve-steps > * {
+    border-width: 4px;
+    border-style: solid;
+    border-radius: calc(var(--spacing) * 2);
+    padding: calc((var(--spacing) * 1));
+    font-weight: bold;
+}
+
+#layer-controls button,
+#cube-controls button,
+#solve-wrap label {
+    width: calc(var(--spacing) * 28);
+}
+
+#solve-wrap,
+#controls > div {
+    flex-direction: column;
+}
+
+#controls > div,
+#layer-controls > div,
+#cube-controls > div,
+#solve-wrap,
+#solve-wrap > div,
+#solve-steps {
+    display: flex;
+    gap: calc(var(--spacing) * 2);
+}
+
+#control-f button {
+    border-color: var(--color-yellow-400);
+    background-color: var(--color-yellow-200);
+}
+
+#control-f button:hover {
+    border-color: var(--color-yellow-500);
+}
+
+#control-b button {
+    border-color: var(--color-amber-400);
+    background-color: var(--color-amber-200);
+}
+
+#control-b button:hover {
+    border-color: var(--color-amber-500);
+}
+
+#control-l button {
+    border-color: var(--color-emerald-400);
+    background-color: var(--color-emerald-200);
+}
+
+#control-l button:hover {
+    border-color: var(--color-emerald-500);
+}
+
+#control-r button {
+    border-color: var(--color-green-400);
+    background-color: var(--color-green-200);
+}
+
+#control-r button:hover {
+    border-color: var(--color-green-500);
+}
+
+#control-u button {
+    border-color: var(--color-fuchsia-400);
+    background-color: var(--color-fuchsia-200);
+}
+
+#control-u button:hover {
+    border-color: var(--color-fuchsia-500);
+}
+
+#control-d button {
+    border-color: var(--color-pink-400);
+    background-color: var(--color-pink-200);
+}
+
+#control-d button:hover {
+    border-color: var(--color-pink-500);
+}
+
+#control-m button {
+    border-color: var(--color-sky-400);
+    background-color: var(--color-sky-200);
+}
+
+#control-m button:hover {
+    border-color: var(--color-sky-500);
+}
+
+#control-e button {
+    border-color: var(--color-cyan-400);
+    background-color: var(--color-cyan-200);
+}
+
+#control-e button:hover {
+    border-color: var(--color-cyan-500);
+}
+
+#control-s button {
+    border-color: var(--color-teal-400);
+    background-color: var(--color-teal-200);
+}
+
+#control-s button:hover {
+    border-color: var(--color-teal-500);
+}
+
+#control-x button {
+    border-color: var(--color-slate-400);
+    background-color: var(--color-slate-200);
+}
+
+#control-x button:hover {
+    border-color: var(--color-slate-500);
+}
+
+#control-y button {
+    border-color: var(--color-olive-400);
+    background-color: var(--color-olive-200);
+}
+
+#control-y button:hover {
+    border-color: var(--color-olive-500);
+}
+
+#control-z button {
+    border-color: var(--color-mauve-400);
+    background-color: var(--color-mauve-200);
+}
+
+#control-z button:hover {
+    border-color: var(--color-mauve-500);
+}
+
+#solve-steps > * {
+    text-align: center;
+    width: 100%;
+    background-color: var(--color-amber-300);
+    border-color: var(--color-amber-500);
+}
+
+.text-border-light {
+    text-shadow:
+        -1px -1px var(--text-border-color),
+        -1px 1px var(--text-border-color),
+        1px -1px var(--text-border-color),
+        1px 1px var(--text-border-color);
+}
