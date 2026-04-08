@@ -6,10 +6,10 @@ import { SolverWorkerMessage, SolverWorkerResponse, TColorNumber } from "./types
 let workerText: string | null = null
 let wasmScript: string | null = null
 
-const solveLoader = assertExists(document.querySelector('#solve-loader'))
-
 export function initCubeSolver() {
-    assertExists(document.getElementById('solve')).addEventListener('click', async _ => {
+    const solveLoader = assertExists(document.getElementById('solve-loader'))
+    const solveButton = assertExists(document.getElementById('solve'))
+    solveButton.addEventListener('click', async _ => {
         solveLoader.setAttribute('style', 'display: block')
         const cubeColorNumbers: Array<Array<Array<TColorNumber>>> = []
         cubeColors.forEach(layer => {
@@ -50,11 +50,14 @@ export function initCubeSolver() {
         const workerPromises = []
         workerText ??= assertExists(document.querySelector('#solver-worker')).textContent
         const workerBlob = new Blob([workerText ?? ''], { type: 'text/javascript' })
+        let percentage = 0
         for (let i = 0; i < 6; i++) {
             const threadIdx = i
             const worker = new Worker(window.URL.createObjectURL(workerBlob))
             workerPromises.push(new Promise<SolverWorkerResponse>(res => {
                 worker.addEventListener('message', (ev: MessageEvent<SolverWorkerResponse>) => {
+                    percentage += 1/6 * 100
+                    solveButton.style.setProperty('--percentage', percentage + '%')
                     res(ev.data)
                 })
             }))
@@ -70,6 +73,7 @@ export function initCubeSolver() {
         }
 
         const results = await Promise.all(workerPromises)
+        solveButton.style.setProperty('--percentage', '0%')
         const moves = results
             .sort((a, b ) => a.cubeSolve.moves.length - b.cubeSolve.moves.length)[0]
             .cubeSolve
@@ -77,17 +81,5 @@ export function initCubeSolver() {
 
         solveLoader.removeAttribute('style')
         setupSequence(moves)
-
-        /*res.json().then((cubeSolve: CubeSolve) => {
-            setupSequence(cubeSolve.moves)
-            const error = cubeSolve.error
-            if (!error) {
-                solveErrorElement.style.display = 'none'
-            }
-            else {
-                solveErrorElement.style.display = 'block'
-            }
-            solveErrorElement.innerText = error
-        })*/
     })
 }

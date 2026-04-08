@@ -1,7 +1,7 @@
 import cubeTextureUrl from './images/metal.jpg'
 import cubeMapNormalUrl from './images/metal_normal.png'
 import cubeRoughnessMapUrl from './images/metal_roughness.jpg'
-//import cubeAlphaMapUrl from './images/cube_alpha.png'
+import cubeAlphaMapUrl from './images/cube_alpha.png'
 import cubeCenterTextureUrl from './images/metal_center.jpg'
 import cubeCenterNormalMapUrl from './images/metal_center_normal.png'
 import cubeCenterRoughnessMapUrl from './images/metal_center_roughness.jpg'
@@ -14,7 +14,7 @@ import fragment from './shaders/fragment.glsl'
 //@ts-ignore
 import vertex from './shaders/vertex.glsl'
 //@ts-ignore
-/*import redDds from './textures/red_cube.dds'
+import redDds from './textures/red_cube.dds'
 //@ts-ignore
 import whiteDds from './textures/white_cube.dds'
 //@ts-ignore
@@ -27,19 +27,19 @@ import yellowDds from './textures/yellow_cube.dds'
 import greenDds from './textures/green_cube.dds'
 //@ts-ignore
 import blackDds from './textures/black_cube.dds'
-import { DDSLoader } from 'three/examples/jsm/loaders/DDSLoader.js'*/
+import { DDSLoader } from 'three/examples/jsm/loaders/DDSLoader.js'
 
-//export const cubeAlphaMap = new THREE.TextureLoader().load(cubeAlphaMapUrl)
+export const cubeAlphaMap = new THREE.TextureLoader().load(cubeAlphaMapUrl)
 
 const cubeCenterTexture = new THREE.TextureLoader().load(cubeCenterTextureUrl)
 const cubeCenterNormalMap = new THREE.TextureLoader().load(cubeCenterNormalMapUrl)
 const cubeCenterRougnessMap = new THREE.TextureLoader().load(cubeCenterRoughnessMapUrl)
-const cubeNormalMaterial = new THREE.MeshStandardMaterial({ /*transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true,*/ vertexColors: true, map: cubeCenterTexture, normalMap: cubeCenterNormalMap, roughnessMap: cubeCenterRougnessMap, precision: 'highp' })
+const cubeNormalMaterial = new THREE.MeshStandardMaterial({ transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true, vertexColors: true, map: cubeCenterTexture, normalMap: cubeCenterNormalMap, roughnessMap: cubeCenterRougnessMap, precision: 'highp' })
 
 const cubeTexture1 = new THREE.TextureLoader().load(cubeTextureUrl)
 const cubeNormalMap1 = new THREE.TextureLoader().load(cubeMapNormalUrl)
 const cubeRoughnessMap1 = new THREE.TextureLoader().load(cubeRoughnessMapUrl)
-const cubeMaterial1 = new THREE.MeshStandardMaterial({ /*transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true,*/ vertexColors: true, map: cubeTexture1, normalMap: cubeNormalMap1, roughnessMap: cubeRoughnessMap1, precision: 'highp' })
+const cubeMaterial1 = new THREE.MeshStandardMaterial({ transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true, vertexColors: true, map: cubeTexture1, normalMap: cubeNormalMap1, roughnessMap: cubeRoughnessMap1, precision: 'highp' })
 
 const cubeTexture2 = new THREE.TextureLoader().load(cubeTextureUrl)
 cubeTexture2.center.set(0.5, 0.5)
@@ -50,7 +50,7 @@ cubeNormalMap2.rotation = -Math.PI / 2
 const cubeRoughnessMap2 = new THREE.TextureLoader().load(cubeRoughnessMapUrl)
 cubeRoughnessMap2.center.set(0.5, 0.5)
 cubeRoughnessMap2.rotation = -Math.PI / 2
-const cubeMaterial2 = new THREE.MeshStandardMaterial({ /*transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true,*/ vertexColors: true, map: cubeTexture2, normalMap: cubeNormalMap2, roughnessMap: cubeRoughnessMap2, precision: 'highp' })
+const cubeMaterial2 = new THREE.MeshStandardMaterial({ transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true, vertexColors: true, map: cubeTexture2, normalMap: cubeNormalMap2, roughnessMap: cubeRoughnessMap2, precision: 'highp' })
 
 const cubeTexture3 = new THREE.TextureLoader().load(cubeTextureUrl)
 cubeTexture3.center.set(0.5, 0.5)
@@ -61,7 +61,7 @@ cubeNormalMap3.rotation = -Math.PI
 const cubeRoughnessMap3 = new THREE.TextureLoader().load(cubeRoughnessMapUrl)
 cubeRoughnessMap3.center.set(0.5, 0.5)
 cubeRoughnessMap3.rotation = -Math.PI
-const cubeMaterial3 = new THREE.MeshStandardMaterial({ /*transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true,*/ vertexColors: true, map: cubeTexture3, normalMap: cubeNormalMap3, roughnessMap: cubeRoughnessMap3, precision: 'highp' })
+const cubeMaterial3 = new THREE.MeshStandardMaterial({ transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true, vertexColors: true, map: cubeTexture3, normalMap: cubeNormalMap3, roughnessMap: cubeRoughnessMap3, precision: 'highp' })
 
 const cubeTexture4 = new THREE.TextureLoader().load(cubeTextureUrl)
 cubeTexture4.center.set(0.5, 0.5)
@@ -72,7 +72,7 @@ cubeNormalMap4.rotation = -Math.PI * 1.5
 const cubeRoughnessMap4 = new THREE.TextureLoader().load(cubeRoughnessMapUrl)
 cubeRoughnessMap4.center.set(0.5, 0.5)
 cubeRoughnessMap4.rotation = -Math.PI * 1.5
-const cubeMaterial4 = new THREE.MeshStandardMaterial({ /*transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true,*/ vertexColors: true, map: cubeTexture4, normalMap: cubeNormalMap4, roughnessMap: cubeRoughnessMap4, precision: 'highp' })
+const cubeMaterial4 = new THREE.MeshStandardMaterial({ transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true, vertexColors: true, map: cubeTexture4, normalMap: cubeNormalMap4, roughnessMap: cubeRoughnessMap4, precision: 'highp' })
 
 export const cubeMaterials = [
   [
@@ -340,7 +340,7 @@ export class CubeEdge extends THREE.Group {
   }
 }
 
-/*export const whitePromise = new Promise<THREE.CompressedTexture>((resolve) => {
+export const whitePromise = new Promise<THREE.CompressedTexture>((resolve) => {
   new DDSLoader().load(whiteDds, (data) => {
     resolve(data)
   })
@@ -457,4 +457,4 @@ export const innerCubeBlackMaterial = new THREE.ShaderMaterial(
     vertexShader: vertex,
     fragmentShader: fragment
   }
-)*/
+)

@@ -93,7 +93,7 @@ export const Notation = {
 
 export const next = document.createElement('input') as HTMLInputElement
 export const cubeColors: Array<Array<Array<[number, number, number]>>> = []
-//export const innerCubeMaterials: Array<Array<Array<THREE.ShaderMaterial>>> = []
+export const innerCubeMaterials: Array<Array<Array<THREE.ShaderMaterial>>> = []
 export const layers = new THREE.Group()
 export const autoplay = assertHTMLInputElement(document.getElementById('autoplay'))
 export const whiteCross = assertHTMLInputElement(document.getElementById('white-cross'))

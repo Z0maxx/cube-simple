@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import { assertExists } from './assertions'
-import { Color, cubeColors, layers } from './cube-constants'
+import { Color, cubeColors, innerCubeMaterials, layers } from './cube-constants'
 import { initCubeSolver } from './solver'
-import { CubeEdge, cubeMaterials } from './materials'
+import { cubeAlphaMap, CubeEdge, cubeMaterials, innerCubeBlackMaterial, innerCubeBlueMaterial, innerCubeGreenMaterial, innerCubeOrangeMaterial, innerCubeRedMaterial, innerCubeWhiteMaterial, innerCubeYellowMaterial } from './materials'
 import { turn, turnCube, turnEnabled, turnTime } from './rotations'
 import './tw.css'
 import { TCubeLayer, TDirection } from './types'
@@ -47,7 +47,7 @@ export function clearHold() {
 
 for (let i = 0; i < 3; i++) {
     const layerColors = []
-    //const innerLayerMaterials = []
+    const innerLayerMaterials = []
     for (let j = 0; j < 9; j++) {
         let right: [number, number, number] = Color.BLACK
         let left: [number, number, number] = Color.BLACK
@@ -56,50 +56,50 @@ for (let i = 0; i < 3; i++) {
         let front: [number, number, number] = Color.BLACK
         let back: [number, number, number] = Color.BLACK
 
-        /*let innerRight = innerCubeBlackMaterial
+        let innerRight = innerCubeBlackMaterial
         let innerLeft = innerCubeBlackMaterial
         let innerTop = innerCubeBlackMaterial
         let innerBottom = innerCubeBlackMaterial
         let innerFront = innerCubeBlackMaterial
-        let innerBack = innerCubeBlackMaterial*/
+        let innerBack = innerCubeBlackMaterial
 
         if (j < 3) {
             top = Color.YELLOW
-            //innerTop = innerCubeYellowMaterial
+            innerTop = innerCubeYellowMaterial
         }
         if (j > 5) {
             bottom = Color.WHITE
-            //innerBottom = innerCubeWhiteMaterial
+            innerBottom = innerCubeWhiteMaterial
         }
         if (j % 3 == 0) {
             left = Color.BLUE
-            ///innerLeft = innerCubeBlueMaterial
+            innerLeft = innerCubeBlueMaterial
         }
         if (j % 3 == 2) {
             right = Color.GREEN
-            //innerRight = innerCubeGreenMaterial
+            innerRight = innerCubeGreenMaterial
         }
         if (i == 0) {
             front = Color.RED
-            //innerFront = innerCubeRedMaterial
+            innerFront = innerCubeRedMaterial
         }
         if (i == 2) {
             back = Color.ORANGE
-            //innerBack = innerCubeOrangeMaterial
+            innerBack = innerCubeOrangeMaterial
         }
 
         layerColors.push([right, left, top, bottom, front, back])
-        /*innerLayerMaterials.push([innerRight, innerLeft, innerTop, innerBottom, innerFront, innerBack]*/
+        innerLayerMaterials.push([innerRight, innerLeft, innerTop, innerBottom, innerFront, innerBack])
     }
     cubeColors.push(layerColors)
-    //innerCubeMaterials.push(innerLayerMaterials)
+    innerCubeMaterials.push(innerLayerMaterials)
 }
 
 
 const edgeWidth = 0.05
 const edgeOffset = 0.4851 - 2 * edgeWidth / 10
 
-//const innerCubes: Array<THREE.Mesh> = []
+const innerCubes: Array<THREE.Mesh> = []
 
 for (let i = 0; i < 3; i++) {
     const layer = new THREE.Group()
@@ -118,10 +118,10 @@ for (let i = 0; i < 3; i++) {
         const cube = new THREE.Mesh(geometry, cubeMaterials[i][j])
         const innerGeometry = new THREE.BoxGeometry(0.999, 0.999, 0.999)
         innerGeometry.computeTangents()
-        //const innerCube = new THREE.Mesh(innerGeometry, assertExists(innerCubeMaterials[i][j]))
-        group.add(cube)
-        /*innerCube.visible = false
-        innerCubes.push(innerCube)*/
+        const innerCube = new THREE.Mesh(innerGeometry, assertExists(innerCubeMaterials[i][j]))
+        group.add(cube, innerCube)
+        innerCube.visible = false
+        innerCubes.push(innerCube)
         const edges = new THREE.Group()
         for (let k = 0; k < 12; k++) {
             const edge = new CubeEdge(0.05)
@@ -220,11 +220,6 @@ function animate() {
 
 animate()
 
-/*const transparentSlider = assertExists(document.getElementById('transparent'))
-transparentSlider.addEventListener('input', (e: Event) => {
-    setOpacity(parseInt((e.target as HTMLInputElement).value))
-})*/
-
 document.querySelectorAll('input[type=range]').forEach(range => {
     range.addEventListener('input', (e: Event) => {
         const target = e.target as HTMLInputElement
@@ -236,7 +231,7 @@ document.querySelectorAll('input[type=range]').forEach(range => {
     })
 })
 
-/*const size = 1024 * 1024
+const size = 1024 * 1024
 const opacityData = new Uint8Array(size * 4)
 const opacityDataTexture = new THREE.DataTexture(opacityData, 1024, 1024)
 const position = new THREE.Vector2(0, 0)
@@ -250,26 +245,35 @@ function setOpacity(opacity: number) {
         data[stride + 2] = value
         data[stride + 3] = 1
     }
-    renderer.copyTextureToTexture(position, opacityDataTexture, cubeAlphaMap)
-}*/
 
-/*function setParallax() {
+    renderer.copyTextureToTexture(position, opacityDataTexture, cubeAlphaMap)
+}
+
+let parallax = false
+function setParallax() {
+    if (parallax) {
+        setOpacity(100)
+    }
+    else {
+        setOpacity(0)
+    }
+
+    parallax = !parallax
     innerCubes.forEach(c => {
         c.visible = !c.visible
     });
-    (transparentSlider as HTMLInputElement).value = '0';
-    transparentSlider.dispatchEvent(new Event('input'))
-    setOpacity(0)
-}*/
+}
 
 
 const cubeControls = assertExists(document.getElementById('cube-controls'))
 for (const controlWrap of cubeControls.children) {
     for (const control of controlWrap.children) {
         control.addEventListener('mousedown', () => {
-            turnCube(control.id as TDirection)
+            const twice = control.id.endsWith('-2')
+            const direction = control.id.replace('-2', '')
+            turnCube(direction as TDirection, twice)
             setHold(window.setInterval(() => {
-                turnCube(control.id as TDirection)
+                turnCube(direction as TDirection, twice)
             }, 2 * turnTime * 1000))
         })
 
@@ -288,7 +292,7 @@ for (const controlWrap of layerControls.children) {
     for (const control of controlWrap.children) {
         let names = control.id.split('-')
         control.addEventListener('click', () => {
-            if (turnEnabled) turn(names[0] as TCubeLayer, names[1] as TDirection)
+            if (turnEnabled) turn(names[0] as TCubeLayer, names[1] as TDirection, names[2] === '2')
         })
     }
 }
@@ -299,6 +303,7 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight)
 })
 
-//assertExists(document.getElementById('parallax')).addEventListener('click', setParallax)
+assertExists(document.getElementById('parallax')).addEventListener('click', setParallax)
+setOpacity(100)
 
 initCubeSolver()

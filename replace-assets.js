@@ -1,7 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const indexHtmlPath = path.join(import.meta.dirname, 'dist', 'index.html')
+const distPath = path.join(import.meta.dirname, 'dist')
+const assetsPath = path.join(distPath, 'assets')
+const indexHtmlPath = path.join(distPath, 'index.html')
 const images = [
     { from: 'metal-', to: 'https://static.wixstatic.com/media/675e5b_cc75ad99458c4621906da012caeba3b6~mv2.jpg' },
     { from: 'metal_center-', to: 'https://static.wixstatic.com/media/675e5b_76cc09bbfb2142dfa66a69db5120e204~mv2.jpg' },
@@ -16,27 +18,39 @@ const images = [
 ]
 
 let indexHtml = fs.readFileSync(indexHtmlPath, { encoding: 'utf-8' })
-const assetFiles = fs.readdirSync(path.join(import.meta.dirname, 'dist', 'assets'))
+const assetFiles = fs.readdirSync(assetsPath)
 
 const jsFile = assetFiles.find(f => path.extname(f) === '.js')
-const jsPath = path.join(import.meta.dirname, 'dist', 'assets', jsFile)
+const jsPath = path.join(assetsPath, jsFile)
 let js = fs.readFileSync(jsPath, { encoding: 'utf-8' })
 assetFiles
     .filter(file => path.extname(file) === '.png' || path.extname(file) === '.jpg')
     .forEach(file => {
         const image = images.find(i => file.includes(i.from))
-        console.log('/assets/' + file, image?.from)
         js = js.replaceAll('/assets/' + file, image.to)
         indexHtml = indexHtml.replaceAll('/assets/' + file, image.to)
+        fs.rm(path.join(assetsPath, file), () => {})
     })
 
-indexHtml = indexHtml.replace(`<script type="module" crossorigin src="/assets/${jsFile}"></script>`, '')
+const scriptTag = `<script type="module" crossorigin src="/assets/${jsFile}"></script>`
+indexHtml = indexHtml.replace(scriptTag, '')
 
-const cssFile = assetFiles.find(f => path.extname(f) === '.css')
-const cssPath = path.join(import.meta.dirname, 'dist', 'assets', cssFile)
+/*const cssFile = assetFiles.find(f => path.extname(f) === '.css')
+const cssPath = path.join(assetsPath, cssFile)
 const css = fs.readFileSync(cssPath)
 indexHtml = indexHtml.replace(`<link rel="stylesheet" href="/assets/${cssFile}">`, `<style>${css}</style>`)
-/*indexHtml = indexHtml.replace('</body>', `
-    <script type="module" crossorigin></script>\r\n</body>`)*/
+console.log(cssPath)
+fs.rm(cssPath, () => {})*/
+indexHtml = indexHtml.replace('</body>', `${scriptTag}\r\n</body>`)
+assetFiles
+    .filter(file => path.extname(file) !== '.png' && path.extname(file) !== '.jpg')
+    .forEach(f => {
+        const splitName = f.split('-')
+        const name = splitName[0] + path.extname(f)
+        indexHtml = indexHtml.replaceAll(f, name)
+        js = js.replaceAll(f, name)
+        fs.renameSync(path.join(assetsPath, f), path.join(assetsPath, name), () => {})
+    })
 
- fs.writeFileSync(indexHtmlPath, indexHtml)
+fs.writeFileSync(indexHtmlPath, indexHtml)
+fs.writeFileSync(path.join(assetsPath, 'index.js'), js)
