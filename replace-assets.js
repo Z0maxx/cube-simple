@@ -35,12 +35,12 @@ assetFiles
 const scriptTag = `<script type="module" crossorigin src="/assets/${jsFile}"></script>`
 indexHtml = indexHtml.replace(scriptTag, '')
 
-/*const cssFile = assetFiles.find(f => path.extname(f) === '.css')
+const cssFile = assetFiles.find(f => path.extname(f) === '.css')
 const cssPath = path.join(assetsPath, cssFile)
 const css = fs.readFileSync(cssPath)
 indexHtml = indexHtml.replace(`<link rel="stylesheet" href="/assets/${cssFile}">`, `<style>${css}</style>`)
 console.log(cssPath)
-fs.rm(cssPath, () => {})*/
+fs.rm(cssPath, () => {})
 indexHtml = indexHtml.replace('</body>', `${scriptTag}\r\n</body>`)
 assetFiles
     .filter(file => path.extname(file) !== '.png' && path.extname(file) !== '.jpg')

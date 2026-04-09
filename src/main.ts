@@ -24,18 +24,37 @@ light3.position.set(0, -3, -3)
 
 const scene = new THREE.Scene()
 scene.background = new THREE.Color().setColorName('mediumslateblue')
-
 scene.add(ambientLight, light1, light2, light3)
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-camera.position.setZ(4.3)
+let width = Math.min(document.body.clientWidth, window.innerWidth)
+let mobile = width < 640
+let smMd = width >= 640 && width < 1024
+function getSceneWidth() {
+    if (smMd) {
+        return width / 2
+    }
 
-const canvas = document.getElementById('canvas')
-if (!canvas) throw new Error()
+    return width
+}
 
-const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true })
+function getSceneHeight() {
+    if (mobile) {
+        return window.innerHeight / 3
+    }
+    else if (smMd) {
+        return Math.min(window.innerHeight, width) * 0.75
+    }
+
+    return window.innerHeight
+}
+
+const camera = new THREE.PerspectiveCamera(mobile ? 40 : 50, getSceneWidth() / getSceneHeight(), 0.1, 1000)
+camera.position.setZ(7.5)
+const canvas = assertExists(document.getElementById('canvas'))
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
 renderer.setPixelRatio(window.devicePixelRatio)
-renderer.setSize(window.innerWidth, window.innerHeight)
+renderer.setSize(getSceneWidth(), getSceneHeight())
 
 let hold: number | undefined
 export function setHold(func: number) {
@@ -298,10 +317,19 @@ for (const controlWrap of layerControls.children) {
 }
 
 window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
+    updateSceneSize()
 })
+
+function updateSceneSize() {
+    width = Math.min(document.body.clientWidth, window.innerWidth)
+    mobile = width < 640
+    smMd = width >= 640 && width < 1024
+    camera.aspect = getSceneWidth() / getSceneHeight()
+    renderer.setSize(getSceneWidth(), getSceneHeight())
+    camera.updateProjectionMatrix()
+}
+
+updateSceneSize()
 
 assertExists(document.getElementById('parallax')).addEventListener('click', setParallax)
 setOpacity(100)

@@ -6,19 +6,21 @@ input {
     cursor: pointer;
 }
 
-#solve-wrap label,
-#solve-wrap .range {
+#settings>* {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: calc(var(--spacing) * 1);
-    background-color: var(--color-red-200);
-    border-color: var(--color-red-400);
     cursor: pointer;
     flex-grow: 1;
 }
 
-#solve-wrap label:has(input:checked) {
+#settings label {
+    background-color: var(--color-red-200);
+    border-color: var(--color-red-400);
+}
+
+#settings label:has(input:checked) {
     background-color: var(--color-green-200);
     border-color: var(--color-green-400)
 }
@@ -26,8 +28,7 @@ input {
 #layer-controls button,
 #cube-controls button,
 #solve-wrap button,
-#solve-wrap label,
-#solve-wrap .range,
+#settings>*,
 #solve-steps>* {
     border-width: 4px;
     border-style: solid;
@@ -46,7 +47,8 @@ input {
 #cube-controls>div,
 #solve-wrap,
 #solve-wrap>div,
-#solve-steps {
+#solve-steps,
+#solve-steps>* {
     display: flex;
     gap: calc(var(--spacing) * 1.5);
 }
@@ -160,7 +162,8 @@ input {
 }
 
 #solve-steps>* {
-    text-align: center;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     background-color: var(--color-purple-300);
     border-color: var(--color-purple-500);
