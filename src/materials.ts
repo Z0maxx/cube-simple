@@ -27,7 +27,6 @@ import yellowKtx2 from './textures/yellow_cube.ktx2'
 import greenKtx2 from './textures/green_cube.ktx2'
 //@ts-ignore
 import blackKtx2 from './textures/black_cube.ktx2'
-import transcoderJs from 'three/examples/jsm/libs/basis/basis_transcoder.js?url'
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
 import { renderer } from './cube-constants'
 
@@ -343,7 +342,7 @@ export class CubeEdge extends THREE.Group {
 }
 
 const ktx2Loader = new KTX2Loader()
-    .setTranscoderPath(transcoderJs.replace(/basis_transcoder\.js$/, ''))
+    .setTranscoderPath('https://raw.githubusercontent.com/Z0maxx/cube-simple/main/src/basis/')
     .detectSupport(renderer)
 
 function loadKtx2(ktx2Url: string) {

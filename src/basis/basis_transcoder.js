@@ -188,7 +188,7 @@ var BASIS = (function () {
  var e = new WebAssembly.RuntimeError(what);
  readyPromiseReject(e);
  throw e } function hasPrefix(str, prefix) { return String.prototype.startsWith ? str.startsWith(prefix) : str.indexOf(prefix) === 0 } var dataURIPrefix = "data:application/octet-stream;base64,";
- function isDataURI(filename) { return hasPrefix(filename, dataURIPrefix) } var fileURIPrefix = "https://github.com/Z0maxx/cube-simple/raw/refs/heads/main/src/basis/";
+ function isDataURI(filename) { return hasPrefix(filename, dataURIPrefix) } var fileURIPrefix = "https://raw.githubusercontent.com/Z0maxx/cube-simple/main/src/basis/";
  function isFileURI(filename) { return hasPrefix(filename, fileURIPrefix) } var wasmBinaryFile = "basis_transcoder.wasm";
  if (!isDataURI(wasmBinaryFile)) { wasmBinaryFile = locateFile(wasmBinaryFile) } function getBinary() { try { if (wasmBinary) { return new Uint8Array(wasmBinary) } if (readBinary) { return readBinary(wasmBinaryFile) } else { throw "both async and sync fetching of the wasm failed" } } catch (err) { abort(err) } } function getBinaryPromise() { if (!wasmBinary && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) && typeof fetch === "function" && !isFileURI(wasmBinaryFile)) { return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(function (response) { if (!response["ok"]) { throw "failed to load wasm binary file at '" + wasmBinaryFile + "'" } return response["arrayBuffer"]() }).catch(function () { return getBinary() }) } return Promise.resolve().then(getBinary) } function createWasm() { var info = { "a": asmLibraryArg };
  function receiveInstance(instance, module) { var exports = instance.exports;
