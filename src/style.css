@@ -190,6 +190,10 @@ input {
     background-image: linear-gradient(to right, var(--color-sky-400) var(--percentage), transparent var(--percentage) 100%)
 }
 
+#canvas-loader > img {
+    animation: rotation 1.5s ease-in-out infinite;
+}
+
 .loader {
     width: calc(var(--spacing) * 8);
     height: calc(var(--spacing) * 8);

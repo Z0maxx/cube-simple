@@ -9,8 +9,9 @@
 </head>
 
 <body class="bg-[mediumslateblue] flex flex-col sm:flex-row-reverse items-center sm:items-start h-full w-full">
+    <div id="canvas-loader" class="absolute flex pointer-events-none sm:mr-8 sm:items-center sm:justify-end lg:justify-center sm:flex top-22 sm:top-0 size-18 sm:w-full sm:h-full"><img src="src/images/favicon.ico"></div>
     <canvas id="canvas" class="mt-12 lg:mt-0"></canvas>
-    <div id="controls" class="z-[10000001] lg:absolute top-2.5 left-2.5 flex flex-col gap-2 sm:gap-1.5 p-2 lg:p-0 overflow-auto max-h-[calc(100vh-3rem-100vh/3)] sm:max-h-[100svh] bg-indigo-400 lg:bg-transparent">
+    <div id="controls" class="z-[10000001] lg:absolute top-2.5 left-2.5 flex flex-col gap-2 sm:gap-1.5 p-2 lg:p-0 overflow-auto max-h-[calc(100svh-3rem-100svh/3)] sm:max-h-[100svh] bg-indigo-400 lg:bg-transparent">
         <span class="text-xl text-center text-white text-medium sm:text-left">Face Controls</span>
         <div id="layer-controls" class="flex-wrap justify-center w-full sm:justify-normal lg:w-80">
             <div id="control-f">

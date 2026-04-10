@@ -1,5 +1,5 @@
 import * as THREE from "three" 
-import { assertHTMLInputElement } from "./assertions"
+import { assertExists, assertHTMLInputElement } from "./assertions"
 
 export const Side = {
     RIGHT: 0,
@@ -91,6 +91,8 @@ export const Notation = {
     z: 34, zp: 35, z2: 36
 } as const
 
+export const canvas = assertExists(document.getElementById('canvas'))
+export const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
 export const next = document.createElement('input') as HTMLInputElement
 export const cubeColors: Array<Array<Array<[number, number, number]>>> = []
 export const innerCubeMaterials: Array<Array<Array<THREE.ShaderMaterial>>> = []

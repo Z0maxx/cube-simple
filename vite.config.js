@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [glsl()],
-  assetsInclude: ["**/*.dds", "**/wasm.js"],
+  assetsInclude: ["**/*.ktx2", "**/wasm.js"],
   build: {
     target: "ES2022"
   }

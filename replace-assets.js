@@ -20,7 +20,8 @@ const images = [
 let indexHtml = fs.readFileSync(indexHtmlPath, { encoding: 'utf-8' })
 const assetFiles = fs.readdirSync(assetsPath)
 
-const jsFile = assetFiles.find(f => path.extname(f) === '.js')
+const jsFile = assetFiles.find(f => f.startsWith('index-') && path.extname(f) === '.js')
+console.log(jsFile)
 const jsPath = path.join(assetsPath, jsFile)
 let js = fs.readFileSync(jsPath, { encoding: 'utf-8' })
 assetFiles

@@ -14,20 +14,22 @@ import fragment from './shaders/fragment.glsl'
 //@ts-ignore
 import vertex from './shaders/vertex.glsl'
 //@ts-ignore
-import redDds from './textures/red_cube.dds'
+import redKtx2 from './textures/red_cube.ktx2'
 //@ts-ignore
-import whiteDds from './textures/white_cube.dds'
+import whiteKtx2 from './textures/white_cube.ktx2'
 //@ts-ignore
-import blueDds from './textures/blue_cube.dds'
+import blueKtx2 from './textures/blue_cube.ktx2'
 //@ts-ignore
-import orangeDds from './textures/orange_cube.dds'
+import orangeKtx2 from './textures/orange_cube.ktx2'
 //@ts-ignore
-import yellowDds from './textures/yellow_cube.dds'
+import yellowKtx2 from './textures/yellow_cube.ktx2'
 //@ts-ignore
-import greenDds from './textures/green_cube.dds'
+import greenKtx2 from './textures/green_cube.ktx2'
 //@ts-ignore
-import blackDds from './textures/black_cube.dds'
-import { DDSLoader } from 'three/examples/jsm/loaders/DDSLoader.js'
+import blackKtx2 from './textures/black_cube.ktx2'
+import transcoderJs from 'three/examples/jsm/libs/basis/basis_transcoder.js?url'
+import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
+import { renderer } from './cube-constants'
 
 export const cubeAlphaMap = new THREE.TextureLoader().load(cubeAlphaMapUrl)
 
@@ -75,229 +77,229 @@ cubeRoughnessMap4.rotation = -Math.PI * 1.5
 const cubeMaterial4 = new THREE.MeshStandardMaterial({ transparent: true, alphaMap: cubeAlphaMap, alphaToCoverage: true, vertexColors: true, map: cubeTexture4, normalMap: cubeNormalMap4, roughnessMap: cubeRoughnessMap4, precision: 'highp' })
 
 export const cubeMaterials = [
-  [
     [
-      cubeNormalMaterial,
-      cubeMaterial2,
-      cubeMaterial4,
-      cubeNormalMaterial,
-      cubeMaterial1,
-      cubeNormalMaterial
+        [
+            cubeNormalMaterial,
+            cubeMaterial2,
+            cubeMaterial4,
+            cubeNormalMaterial,
+            cubeMaterial1,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial3,
+            cubeNormalMaterial,
+            cubeMaterial1,
+            cubeNormalMaterial
+        ],
+        [
+            cubeMaterial1,
+            cubeNormalMaterial,
+            cubeMaterial3,
+            cubeNormalMaterial,
+            cubeMaterial2,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeMaterial2,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial4,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ],
+        [
+            cubeMaterial4,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial2,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeMaterial3,
+            cubeNormalMaterial,
+            cubeMaterial1,
+            cubeMaterial4,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial1,
+            cubeMaterial3,
+            cubeNormalMaterial
+        ],
+        [
+            cubeMaterial4,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial2,
+            cubeMaterial3,
+            cubeNormalMaterial
+        ]
     ],
     [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial3,
-      cubeNormalMaterial,
-      cubeMaterial1,
-      cubeNormalMaterial
-    ],
-    [
-      cubeMaterial1,
-      cubeNormalMaterial,
-      cubeMaterial3,
-      cubeNormalMaterial,
-      cubeMaterial2,
-      cubeNormalMaterial
-    ],
-    [
-      cubeNormalMaterial,
-      cubeMaterial2,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial4,
-      cubeNormalMaterial
-    ],
-    [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial
-    ],
-    [
-      cubeMaterial4,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial2,
-      cubeNormalMaterial
-    ],
-    [
-      cubeNormalMaterial,
-      cubeMaterial3,
-      cubeNormalMaterial,
-      cubeMaterial1,
-      cubeMaterial4,
-      cubeNormalMaterial
-    ],
-    [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial1,
-      cubeMaterial3,
-      cubeNormalMaterial
-    ],
-    [
-      cubeMaterial4,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial2,
-      cubeMaterial3,
-      cubeNormalMaterial
-    ]
-  ],
-  [
-    [
-      cubeNormalMaterial,
-      cubeMaterial1,
-      cubeMaterial4,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial
-    ],
-    [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial
-    ],
-    [
+        [
+            cubeNormalMaterial,
+            cubeMaterial1,
+            cubeMaterial4,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ],
+        [
 
-      cubeMaterial1,
-      cubeNormalMaterial,
-      cubeMaterial2,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial
+            cubeMaterial1,
+            cubeNormalMaterial,
+            cubeMaterial2,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeMaterial3,
+            cubeNormalMaterial,
+            cubeMaterial4,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ],
+        [
+            cubeMaterial3,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial2,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ]
     ],
     [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial
-    ],
-    [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial
-    ],
-    [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial
-    ],
-    [
-      cubeNormalMaterial,
-      cubeMaterial3,
-      cubeNormalMaterial,
-      cubeMaterial4,
-      cubeNormalMaterial,
-      cubeNormalMaterial
-    ],
-    [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial
-    ],
-    [
-      cubeMaterial3,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial2,
-      cubeNormalMaterial,
-      cubeNormalMaterial
+        [
+            cubeNormalMaterial,
+            cubeMaterial1,
+            cubeMaterial1,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial2
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial1,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial1
+        ],
+        [
+            cubeMaterial2,
+            cubeNormalMaterial,
+            cubeMaterial2,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial1
+        ],
+        [
+            cubeNormalMaterial,
+            cubeMaterial4,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial2
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial
+        ],
+        [
+            cubeMaterial2,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial4
+        ],
+        [
+            cubeNormalMaterial,
+            cubeMaterial4,
+            cubeNormalMaterial,
+            cubeMaterial4,
+            cubeNormalMaterial,
+            cubeMaterial3
+        ],
+        [
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial3,
+            cubeNormalMaterial,
+            cubeMaterial3
+        ],
+        [
+            cubeMaterial3,
+            cubeNormalMaterial,
+            cubeNormalMaterial,
+            cubeMaterial3,
+            cubeNormalMaterial,
+            cubeMaterial4
+        ]
     ]
-  ],
-  [
-    [
-      cubeNormalMaterial,
-      cubeMaterial1,
-      cubeMaterial1,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial2
-    ],
-    [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial1,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial1
-    ],
-    [
-      cubeMaterial2,
-      cubeNormalMaterial,
-      cubeMaterial2,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial1
-    ],
-    [
-      cubeNormalMaterial,
-      cubeMaterial4,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial2
-    ],
-    [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial
-    ],
-    [
-      cubeMaterial2,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial4
-    ],
-    [
-      cubeNormalMaterial,
-      cubeMaterial4,
-      cubeNormalMaterial,
-      cubeMaterial4,
-      cubeNormalMaterial,
-      cubeMaterial3
-    ],
-    [
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial3,
-      cubeNormalMaterial,
-      cubeMaterial3
-    ],
-    [
-      cubeMaterial3,
-      cubeNormalMaterial,
-      cubeNormalMaterial,
-      cubeMaterial3,
-      cubeNormalMaterial,
-      cubeMaterial4
-    ]
-  ]
 ]
 
 const edgeColor = 'darkslategray'
@@ -308,153 +310,108 @@ const edgeNormalMap = new THREE.TextureLoader().load(edgeNormalMapUrl)
 const edgeMaterial = new THREE.MeshStandardMaterial({ color: edgeColor, map: edgeTexture, normalMap: edgeNormalMap, roughnessMap: edgeRoughnessMap, precision: 'highp' })
 
 export class CubeEdge extends THREE.Group {
-  private static readonly edgeShape: THREE.Shape = new THREE.Shape().moveTo(-0.001, 0.05).lineTo(1.001, 0.05).lineTo(0.951, 0).lineTo(0.0499, 0)
+    private static readonly edgeShape: THREE.Shape = new THREE.Shape().moveTo(-0.001, 0.05).lineTo(1.001, 0.05).lineTo(0.951, 0).lineTo(0.0499, 0)
 
-  private readonly edge: THREE.Group
-  public get meshes(): Array<THREE.Mesh> {
-    return this.edge.children as Array<THREE.Mesh>
-  }
+    private readonly edge: THREE.Group
+    public get meshes(): Array<THREE.Mesh> {
+        return this.edge.children as Array<THREE.Mesh>
+    }
 
-  constructor(width: number) {
-    const mesh1 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
-    const mesh2 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
-    const mesh3 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
-    const mesh4 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
-    const mesh5 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
-    const mesh6 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
-    const mesh7 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
-    const mesh8 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
-    mesh2.rotateY(Math.PI).position.setX(1)
-    mesh3.rotateX(Math.PI / 2).position.setY(width).setZ(-width)
-    mesh4.rotateX(Math.PI / 2).rotateY(Math.PI).position.setY(width).setZ(-width).setX(1)
-    mesh5.rotateX(-Math.PI / 2)
-    mesh6.rotateX(-Math.PI / 2).rotateY(Math.PI).position.setX(1)
-    mesh7.rotateX(Math.PI).position.setY(width).setZ(-width)
-    mesh8.rotateX(Math.PI).rotateY(Math.PI).position.set(1, width, -width)
-    super()
-    this.edge = new THREE.Group()
-    this.edge.position.set(-0.5, -0.5 * width, 0.5 * width)
-    this.edge.add(mesh1, mesh2, mesh7, mesh8, mesh3, mesh4, mesh5, mesh6)
-    this.add(this.edge)
-    this.rotation.y += Math.PI / 2
-  }
+    constructor(width: number) {
+        const mesh1 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
+        const mesh2 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
+        const mesh3 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
+        const mesh4 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
+        const mesh5 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
+        const mesh6 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
+        const mesh7 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
+        const mesh8 = new THREE.Mesh(new THREE.ShapeGeometry(CubeEdge.edgeShape), edgeMaterial)
+        mesh2.rotateY(Math.PI).position.setX(1)
+        mesh3.rotateX(Math.PI / 2).position.setY(width).setZ(-width)
+        mesh4.rotateX(Math.PI / 2).rotateY(Math.PI).position.setY(width).setZ(-width).setX(1)
+        mesh5.rotateX(-Math.PI / 2)
+        mesh6.rotateX(-Math.PI / 2).rotateY(Math.PI).position.setX(1)
+        mesh7.rotateX(Math.PI).position.setY(width).setZ(-width)
+        mesh8.rotateX(Math.PI).rotateY(Math.PI).position.set(1, width, -width)
+        super()
+        this.edge = new THREE.Group()
+        this.edge.position.set(-0.5, -0.5 * width, 0.5 * width)
+        this.edge.add(mesh1, mesh2, mesh7, mesh8, mesh3, mesh4, mesh5, mesh6)
+        this.add(this.edge)
+        this.rotation.y += Math.PI / 2
+    }
 }
 
-export const whitePromise = new Promise<THREE.CompressedTexture>((resolve) => {
-  new DDSLoader().load(whiteDds, (data) => {
-    resolve(data)
-  })
-})
-const whiteCubeMap = await whitePromise
+const ktx2Loader = new KTX2Loader()
+    .setTranscoderPath(transcoderJs.replace(/basis_transcoder\.js$/, ''))
+    .detectSupport(renderer)
 
-export const innerCubeWhiteMaterial = new THREE.ShaderMaterial(
-  {
+function loadKtx2(ktx2Url: string) {
+    return ktx2Loader.loadAsync(ktx2Url)
+}
+
+const cubeMaps = await Promise.all([
+    loadKtx2(whiteKtx2),
+    loadKtx2(redKtx2),
+    loadKtx2(orangeKtx2),
+    loadKtx2(blueKtx2),
+    loadKtx2(greenKtx2),
+    loadKtx2(yellowKtx2),
+    loadKtx2(blackKtx2)
+])
+
+export const innerCubeWhiteMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      cubeMap: { value: whiteCubeMap }
+        cubeMap: { value: cubeMaps[0] }
     },
     vertexShader: vertex,
     fragmentShader: fragment
-  }
-)
-
-export const redPromise = new Promise<THREE.CompressedTexture>((resolve) => {
-  new DDSLoader().load(redDds, (data) => {
-    resolve(data)
-  })
 })
-const redCubeMap = await redPromise
 
-export const innerCubeRedMaterial = new THREE.ShaderMaterial(
-  {
+export const innerCubeRedMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      cubeMap: { value: redCubeMap }
+        cubeMap: { value: cubeMaps[1] }
     },
     vertexShader: vertex,
     fragmentShader: fragment
-  }
-)
-
-export const orangePromise = new Promise<THREE.CompressedTexture>((resolve) => {
-  new DDSLoader().load(orangeDds, (data) => {
-    resolve(data)
-  })
 })
-const orangeCubeMap = await orangePromise
 
-export const innerCubeOrangeMaterial = new THREE.ShaderMaterial(
-  {
+export const innerCubeOrangeMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      cubeMap: { value: orangeCubeMap }
+        cubeMap: { value: cubeMaps[2] }
     },
     vertexShader: vertex,
     fragmentShader: fragment
-  }
-)
-
-export const bluePromise = new Promise<THREE.CompressedTexture>((resolve) => {
-  new DDSLoader().load(blueDds, (data) => {
-    resolve(data)
-  })
 })
-const blueCubeMap = await bluePromise
 
-export const innerCubeBlueMaterial = new THREE.ShaderMaterial(
-  {
+export const innerCubeBlueMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      cubeMap: { value: blueCubeMap }
+        cubeMap: { value: cubeMaps[3] }
     },
     vertexShader: vertex,
     fragmentShader: fragment
-  }
-)
-
-export const greenPromise = new Promise<THREE.CompressedTexture>((resolve) => {
-  new DDSLoader().load(greenDds, (data) => {
-    resolve(data)
-  })
 })
-const greenCubeMap = await greenPromise
 
-export const innerCubeGreenMaterial = new THREE.ShaderMaterial(
-  {
+export const innerCubeGreenMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      cubeMap: { value: greenCubeMap }
+        cubeMap: { value: cubeMaps[4] }
     },
     vertexShader: vertex,
     fragmentShader: fragment
-  }
-)
-
-export const yellowPromise = new Promise<THREE.CompressedTexture>((resolve) => {
-  new DDSLoader().load(yellowDds, (data) => {
-    resolve(data)
-  })
 })
-const yellowCubeMap = await yellowPromise
 
-export const innerCubeYellowMaterial = new THREE.ShaderMaterial(
-  {
+export const innerCubeYellowMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      cubeMap: { value: yellowCubeMap }
+        cubeMap: { value: cubeMaps[5] }
     },
     vertexShader: vertex,
     fragmentShader: fragment
-  }
-)
-
-export const blackPromise = new Promise<THREE.CompressedTexture>((resolve) => {
-  new DDSLoader().load(blackDds, (data) => {
-    resolve(data)
-  })
 })
-const blackCubeMap = await blackPromise
 
-export const innerCubeBlackMaterial = new THREE.ShaderMaterial(
-  {
+export const innerCubeBlackMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      cubeMap: { value: blackCubeMap }
+        cubeMap: { value: cubeMaps[6] }
     },
     vertexShader: vertex,
     fragmentShader: fragment
-  }
-)
+})

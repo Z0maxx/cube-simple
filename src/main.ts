@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { assertExists } from './assertions'
-import { Color, cubeColors, innerCubeMaterials, layers } from './cube-constants'
+import { canvas, Color, cubeColors, innerCubeMaterials, layers, renderer } from './cube-constants'
 import { initCubeSolver } from './solver'
 import { cubeAlphaMap, CubeEdge, cubeMaterials, innerCubeBlackMaterial, innerCubeBlueMaterial, innerCubeGreenMaterial, innerCubeOrangeMaterial, innerCubeRedMaterial, innerCubeWhiteMaterial, innerCubeYellowMaterial } from './materials'
 import { turn, turnCube, turnEnabled, turnTime } from './rotations'
@@ -37,12 +37,18 @@ function getSceneWidth() {
     return width
 }
 
+const style = window.getComputedStyle(document.body)
+const canvasMarginTop =
+    parseInt(canvas.className.split(' ').find(c => c.startsWith('mt-'))?.split('mt-')[1] ?? '0') *
+    parseFloat(style.getPropertyValue('--spacing').split(' ')[0]) *
+    parseInt(style.fontSize.replace('px', ''))
+
 function getSceneHeight() {
     if (mobile) {
         return window.innerHeight / 3
     }
     else if (smMd) {
-        return Math.min(window.innerHeight, width) * 0.75
+        return Math.min(window.innerHeight, width * 0.65) - canvasMarginTop
     }
 
     return window.innerHeight
@@ -50,9 +56,7 @@ function getSceneHeight() {
 
 const camera = new THREE.PerspectiveCamera(mobile ? 40 : 50, getSceneWidth() / getSceneHeight(), 0.1, 1000)
 camera.position.setZ(7.5)
-const canvas = assertExists(document.getElementById('canvas'))
 
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(getSceneWidth(), getSceneHeight())
 
@@ -335,3 +339,4 @@ assertExists(document.getElementById('parallax')).addEventListener('click', setP
 setOpacity(100)
 
 initCubeSolver()
+assertExists(document.querySelector('#canvas-loader')).remove()
