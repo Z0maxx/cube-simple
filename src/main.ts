@@ -53,7 +53,6 @@ function getSceneHeight() {
 }
 
 const camera = new THREE.PerspectiveCamera(mobile ? 40 : 50, getSceneWidth() / getSceneHeight(), 0.1, 1000)
-
 function setCameraPosition() {
     camera.position.x = -3
     camera.position.y = 3
@@ -114,6 +113,38 @@ canvasDrag.addEventListener('touchstart', (e: Event) => {
     window.addEventListener('touchmove', touchMove, { passive: false })
     window.addEventListener('touchend', touchEnd)
 }, { passive: false })
+
+function mouseMove(e: MouseEvent) {
+    if (mobile) {
+        const clientY = e.clientY - canvasDrag.clientHeight / 2
+        if (clientY <= mobileMinHeight() + canvasMarginTop || clientY >= window.innerHeight - 40) {
+            return
+        }
+
+        mobileHeight = clientY - canvasMarginTop
+    }
+
+    else if (smMd) {
+        const clientX = e.clientX
+        if (clientX >= minSmMdWidth() || clientX <= 5) {
+            return
+        }
+
+        smMdWidth = window.innerWidth - clientX
+    }
+    
+    updateSceneSize()
+}
+
+function mouseUp() {
+    window.removeEventListener('mousemove', mouseMove)
+    window.removeEventListener('mouseup', mouseUp)
+}
+
+canvasDrag.addEventListener('mousedown', () => {
+    window.addEventListener('mousemove', mouseMove)
+    window.addEventListener('mouseup', mouseUp)
+})
 
 const controlsWrapper = getHTMLElement('#controls')
 function updateSceneSize() {
