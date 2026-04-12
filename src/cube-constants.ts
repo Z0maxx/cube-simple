@@ -93,7 +93,7 @@ export const Notation = {
 } as const
 
 export const canvas = assertExists(document.querySelector('#canvas'))
-export const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
+export const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
 export const next = assertHTMLInputElement(document.createElement('input'))
 export const cubeColors: Array<Array<Array<[number, number, number]>>> = []
 export const innerCubeMaterials: Array<Array<Array<THREE.ShaderMaterial>>> = []

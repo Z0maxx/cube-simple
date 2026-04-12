@@ -6,14 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="src/images/favicon.ico">
     <title>Cube</title>
+    <script>
+        if (localStorage.theme === "dark") {
+            document.documentElement.classList.add("dark")
+        }
+    </script>
 </head>
 
-<body class="bg-[mediumslateblue] flex flex-col sm:flex-row-reverse items-center sm:items-start h-full w-full">
+<body class="bg-[mediumslateblue] flex flex-col sm:flex-row-reverse items-center sm:items-start h-full w-full dark:bg-indigo-900">
+    <button class="absolute top-20 sm:top-auto sm:bottom-1.5 left-1.5 sm:left-auto sm:right-1.5 size-6" id="dark-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-black dark:fill-white">
+            <g clip-path="url(#a)">
+                <path d="M12 0a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V1a1 1 0 0 1 1-1ZM4.929 3.515a1 1 0 0 0-1.414 1.414l2.828 2.828a1 1 0 0 0 1.414-1.414L4.93 3.515ZM1 11a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2H1ZM18 12a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1ZM17.657 16.243a1 1 0 0 0-1.414 1.414l2.828 2.828a1 1 0 1 0 1.414-1.414l-2.828-2.828ZM7.757 17.657a1 1 0 1 0-1.414-1.414L3.515 19.07a1 1 0 1 0 1.414 1.414l2.828-2.828ZM20.485 4.929a1 1 0 0 0-1.414-1.414l-2.828 2.828a1 1 0 1 0 1.414 1.414l2.828-2.828ZM13 19a1 1 0 1 0-2 0v4a1 1 0 1 0 2 0v-4ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z" />
+            </g>
+            <defs>
+                <clipPath id="a">
+                    <path fill="#ffffff" d="M0 0h24v24H0z" />
+                </clipPath>
+            </defs>
+        </svg>
+    </button>
     <div id="canvas-loader" class="absolute flex pointer-events-none sm:mr-8 sm:items-center sm:justify-end lg:justify-center sm:flex top-22 sm:top-0 size-18 sm:w-full sm:h-full"><img src="src/images/favicon.ico"></div>
     <canvas id="canvas" class="mt-12 lg:mt-0"></canvas>
-    <div id="canvas-drag-line" class="absolute z-40 flex items-center justify-end w-full h-1 sm:justify-center sm:h-full sm:w-1 bg-cyan-500 lg:hidden" style="display: none">
-        <div id="canvas-drag" class="flex items-center justify-center mr-2 origin-center rounded-sm min-w-12 min-h-5 sm:mr-0 bg-cyan-500 sm:rotate-90">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 20" id="icon" class="w-6 h-4 fill-cyan-700">
+    <div id="canvas-drag-line" class="absolute z-40 flex items-center justify-end w-full h-1 sm:justify-center sm:h-full sm:w-1 bg-cyan-500 dark:bg-cyan-700 lg:hidden" style="display: none">
+        <div id="canvas-drag" class="flex items-center justify-center mr-2 origin-center rounded-sm min-w-12 min-h-5 sm:mr-0 bg-cyan-500 dark:bg-cyan-700 sm:rotate-90">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 20" id="icon" class="w-6 h-4 fill-cyan-700 dark:fill-cyan-900">
                 <defs>
                     <style>
                         .cls-1 {
@@ -27,7 +44,7 @@
             </svg>
         </div>
     </div>
-    <div id="controls" class="lg:absolute top-2.5 left-2.5 flex flex-col gap-2 sm:gap-1.5 p-2 lg:p-0 overflow-auto max-h-[calc(100svh-3rem-var(--canvasHeight))] [--canvasHeight:100svh/3] sm:max-h-[100svh] bg-indigo-400 lg:bg-transparent">
+    <div id="controls" class="lg:absolute top-2.5 left-2.5 flex flex-col gap-2 sm:gap-1.5 p-2 lg:p-0 overflow-auto max-h-[calc(100svh-3rem-var(--canvasHeight))] [--canvasHeight:100svh/3] sm:max-h-[100svh] bg-indigo-400 dark:bg-indigo-800 dark:lg:bg-transparent lg:bg-transparent">
         <span class="text-xl text-center text-white text-medium sm:text-left">Face Controls</span>
         <div id="layer-controls" class="flex-wrap justify-center w-full sm:justify-normal lg:w-80">
             <div id="control-f">
@@ -96,14 +113,14 @@
         </div>
         <div id="solve-wrap" class="flex-col w-full mt-4 lg:w-80">
             <div>
-                <button id="solve" class="relative text-2xl w-full bg-lime-400 border-lime-500 text-border-light text-white [--text-border-color:black] h-16 hover:bg-lime-300">Solve</button>
+                <button id="solve" class="relative text-2xl w-full bg-lime-400 dark:bg-emerald-800 dark:border-emerald-900 border-lime-500 text-border-light text-white [--text-border-color:black] h-16 hover:bg-lime-300 dark:hover:bg-emerald-700">Solve</button>
             </div>
             <div id="settings" class="flex-wrap">
                 <label for="autoplay">Autoplay<input id="autoplay" type="checkbox" checked></label>
                 <label for="white-cross">White Cross<input id="white-cross" type="checkbox"></label>
                 <label for="parallax">Parallax Mapping<input id="parallax" type="checkbox"></label>
                 <label for="longest-sequence">Longest Sequence<input id="longest-sequence" type="checkbox"></label>
-                <div class="bg-slate-200 border-slate-400">
+                <div class="bg-slate-200 border-slate-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
                     <span>Turn Speed</span>
                     <input type="range" min="0" max="3" value="2" id="turn-speed" class="w-20">
                 </div>
@@ -119,26 +136,26 @@
         </div>
     </div>
     <div class="absolute top-20 sm:top-2.5 right-1.5 sm:right-2.5">
-        <label for="info" class="flex items-center justify-center text-2xl lg:text-4xl text-border-light [--text-border-color:white] text-fuchsia-500 font-bold border-4 rounded-full size-8 lg:size-12 bg-amber-400 border-amber-600">?</label>
+        <label for="info" class="flex items-center justify-center text-2xl lg:text-4xl text-border-light [--text-border-color:white] text-fuchsia-500 dark:text-fuchsia-900 font-bold border-4 rounded-full size-8 lg:size-10 bg-amber-400 dark:bg-teal-700 dark:border-teal-800 border-amber-600">?</label>
     </div>
     <input type="checkbox" id="info" class="hidden">
-    <div class="hidden py-1 px-2 absolute top-30 sm:top-12 lg:top-18 right-2.5 bg-amber-200 border-4 border-amber-400 rounded-sm w-[95%] lg:w-1/2 z-50 overflow-auto max-h-[calc(100svh-8.5rem)] sm:max-h-[calc(100svh-5.5rem)] lg:max-h-none">
+    <div class="hidden py-1 px-2 absolute top-30 sm:top-12 lg:top-18 right-2.5 bg-amber-200 dark:bg-teal-900 border-4 dark:border-teal-950 dark:text-white border-amber-400 rounded-sm w-[95%] lg:w-1/2 z-50 overflow-auto max-h-[calc(100svh-8.5rem)] sm:max-h-[calc(100svh-5.5rem)] lg:max-h-none">
         <div>
             <h2 class="text-lg lg:text-xl">About</h2>
-            <p>- This application solves the Rubik's Cube using the <a href="https://solvethecube.com/" class="text-indigo-600 underline underline-offset-2 hover:text-indigo-700">Beginner's Method</a></p>
-            <p>- Use the Face and Cube control buttons to scramble the cube, more information about Rubik's Cube notations are found <a href="https://jperm.net/3x3/moves" class="text-indigo-600 underline underline-offset-2 hover:text-indigo-700">here</a></p>
+            <p>- This application solves the Rubik's Cube using the <a href="https://solvethecube.com/" class="text-indigo-600 underline dark:text-indigo-300 underline-offset-2 dark:hover:text-indigo-200 hover:text-indigo-700">Beginner's Method</a></p>
+            <p>- Use the Face and Cube control buttons to scramble the cube, more information about Rubik's Cube notations are found <a href="https://jperm.net/3x3/moves" class="text-indigo-600 underline dark:text-indigo-300 underline-offset-2 dark:hover:text-indigo-200 hover:text-indigo-700">here</a></p>
             <p>- After pressing the Solve button, the solve sequence is calculated</p>
             <h2 class="text-lg lg:text-xl">Cube Camera Control</h2>
             <p>- <b>Mouse controls</b>: Left-click and drag to rotate the camera, right-click and drag to pan, use the scroll wheel to zoom</p>
             <p>- <b>Touch controls</b>: Swipe to rotate the camera, pinch and move to pan, pinch to zoom</p>
             <h2 class="text-lg lg:text-xl">Settings</h2>
-            <p>- <b>Autoplay</b>: automatically plays the solve sequence, to manually step beetween moves disable this setting and use the previous move (<kbd class="px-1 text-sm bg-purple-300 border-2 border-purple-500 rounded-sm"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" class="inline rotate-180 size-3" version="1.1" id="Layer_1" viewBox="0 0 512.003 512.003" xml:space="preserve">
+            <p>- <b>Autoplay</b>: automatically plays the solve sequence, to manually step beetween moves disable this setting and use the previous move (<kbd class="px-1 text-sm bg-purple-300 border-2 border-purple-500 rounded-sm dark:bg-purple-800 dark:border-purple-950"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="inline rotate-180 size-3 fill-black dark:fill-white" version="1.1" id="Layer_1" viewBox="0 0 512.003 512.003" xml:space="preserve">
                         <g>
                             <g>
                                 <path d="M507.284,248.364L12.35,0.898C8.894-0.826,4.721-0.007,2.153,2.86c-2.56,2.884-2.867,7.125-0.759,10.351l159.07,242.79    L1.393,498.792c-2.108,3.226-1.801,7.467,0.759,10.351c1.664,1.86,4.002,2.859,6.383,2.859c1.289,0,2.594-0.29,3.814-0.896    l494.933-247.467c2.893-1.451,4.719-4.403,4.719-7.637S510.176,249.815,507.284,248.364z" />
                             </g>
                         </g>
-                    </svg></kbd>) and next move (<kbd class="px-1 text-sm bg-purple-300 border-2 border-purple-500 rounded-sm"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" class="inline size-3" version="1.1" id="Layer_1" viewBox="0 0 512.003 512.003" xml:space="preserve">
+                    </svg></kbd>) and next move (<kbd class="px-1 text-sm bg-purple-300 border-2 border-purple-500 rounded-sm dark:bg-purple-800 dark:border-purple-950"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="inline size-3 fill-black dark:fill-white" version="1.1" id="Layer_1" viewBox="0 0 512.003 512.003" xml:space="preserve">
                         <g>
                             <g>
                                 <path d="M507.284,248.364L12.35,0.898C8.894-0.826,4.721-0.007,2.153,2.86c-2.56,2.884-2.867,7.125-0.759,10.351l159.07,242.79    L1.393,498.792c-2.108,3.226-1.801,7.467,0.759,10.351c1.664,1.86,4.002,2.859,6.383,2.859c1.289,0,2.594-0.29,3.814-0.896    l494.933-247.467c2.893-1.451,4.719-4.403,4.719-7.637S510.176,249.815,507.284,248.364z" />

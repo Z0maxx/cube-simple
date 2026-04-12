@@ -9,6 +9,11 @@ import { TCubeLayer, TDirection } from './types'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { getHTMLElement } from './element-getter'
 
+getHTMLElement('#dark-toggle').addEventListener('click', () => {
+    localStorage.theme = localStorage.theme === 'dark' ? 'light' : 'dark'
+    document.documentElement.classList.toggle('dark')
+})
+
 let width = Math.min(document.body.clientWidth, window.innerWidth)
 let mobile = width < 640
 let smMd = width >= 640 && width < 1024
@@ -147,7 +152,6 @@ light3.intensity = 50
 light3.position.set(0, -3, -3)
 
 const scene = new THREE.Scene()
-scene.background = new THREE.Color().setColorName('mediumslateblue')
 scene.add(ambientLight, light1, light2, light3)
 
 renderer.setPixelRatio(window.devicePixelRatio)

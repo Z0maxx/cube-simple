@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 label,
 button,
@@ -162,6 +163,150 @@ input {
     border-color: var(--color-mauve-500);
 }
 
+html.dark {
+    #control-f button {
+        border-color: var(--color-orange-900);
+        background-color: var(--color-orange-700);
+        color: white
+    }
+
+    #control-f button:hover {
+        border-color: var(--color-orange-800);
+    }
+
+    #control-b button {
+        border-color: var(--color-orange-950);
+        background-color: var(--color-orange-800);
+        color: white
+    }
+
+    #control-b button:hover {
+        border-color: var(--color-orange-900);
+    }
+
+    #control-l button {
+        border-color: var(--color-emerald-900);
+        background-color: var(--color-emerald-700);
+        color: white
+    }
+
+    #control-l button:hover {
+        border-color: var(--color-emerald-800);
+    }
+
+    #control-r button {
+        border-color: var(--color-emerald-950);
+        background-color: var(--color-emerald-800);
+        color: white
+    }
+
+    #control-r button:hover {
+        border-color: var(--color-emerald-900);
+    }
+
+    #control-u button {
+        border-color: var(--color-fuchsia-900);
+        background-color: var(--color-fuchsia-700);
+        color: white
+    }
+
+    #control-u button:hover {
+        border-color: var(--color-fuchsia-800);
+    }
+
+    #control-d button {
+        border-color: var(--color-fuchsia-950);
+        background-color: var(--color-fuchsia-800);
+        color: white
+    }
+
+    #control-d button:hover {
+        border-color: var(--color-fuchsia-900);
+    }
+
+    #control-m button {
+        border-color: var(--color-sky-950);
+        background-color: var(--color-sky-800);
+        color: white
+    }
+
+    #control-m button:hover {
+        border-color: var(--color-sky-900);
+    }
+
+    #control-e button {
+        border-color: var(--color-cyan-950);
+        background-color: var(--color-cyan-800);
+        color: white
+    }
+
+    #control-e button:hover {
+        border-color: var(--color-cyan-900);
+    }
+
+    #control-s button {
+        border-color: var(--color-teal-950);
+        background-color: var(--color-teal-800);
+        color: white
+    }
+
+    #control-s button:hover {
+        border-color: var(--color-teal-900);
+    }
+
+    #control-x button {
+        border-color: var(--color-slate-900);
+        background-color: var(--color-slate-700);
+        color: white
+    }
+
+    #control-x button:hover {
+        border-color: var(--color-slate-800);
+    }
+
+    #control-y button {
+        border-color: var(--color-olive-900);
+        background-color: var(--color-olive-700);
+        color: white
+    }
+
+    #control-y button:hover {
+        border-color: var(--color-olive-900);
+    }
+
+    #control-z button {
+        border-color: var(--color-mauve-900);
+        background-color: var(--color-mauve-700);
+        color: white
+    }
+
+    #control-z button:hover {
+        border-color: var(--color-mauve-800);
+    }
+
+    #settings label {
+        background-color: var(--color-red-900);
+        border-color: var(--color-red-950);
+        user-select: none;
+        color: white
+    }
+
+    #settings label:has(input:checked) {
+        background-color: var(--color-green-900);
+        border-color: var(--color-green-950)
+    }
+
+    #solve-steps>* {
+        background-color: var(--color-purple-800);
+        border-color: var(--color-purple-950);
+        color: white
+    }
+
+    #solve-steps>button:hover {
+        border-color: var(--color-purple-900);
+    }
+}
+
 #solve-steps>* {
     justify-content: center;
     align-items: center;
@@ -186,7 +331,7 @@ input {
     display: block
 }
 
-#canvas-loader > img {
+#canvas-loader>img {
     animation: rotation 1.5s ease-in-out infinite;
 }
 
