@@ -32,7 +32,6 @@ let indexHtml = fs.readFileSync(indexHtmlPath, { encoding: 'utf-8' })
 const assetFiles = fs.readdirSync(assetsPath)
 
 const jsFile = assetFiles.find(f => f.startsWith('index-') && path.extname(f) === '.js')
-console.log(jsFile)
 const jsPath = path.join(assetsPath, jsFile)
 let js = fs.readFileSync(jsPath, { encoding: 'utf-8' })
 assetFiles
@@ -63,9 +62,9 @@ const cssPath = path.join(assetsPath, cssFile)
 const css = fs.readFileSync(cssPath)
 indexHtml = indexHtml.replace(`<link rel="stylesheet" href="/assets/${cssFile}">`, `<style>${css}</style>`)
 fs.rm(cssPath, () => {})
-indexHtml = indexHtml.replace('</body>', `${scriptTag}\r\n</body>`)
+fs.rm(jsPath, () => {})
 assetFiles
-    .filter(file => !['.png', '.jpg', '.ktx2'].includes(path.extname(file)))
+    .filter(file => !['.png', '.jpg', '.ktx2', '.js', '.css'].includes(path.extname(file)))
     .forEach(f => {
         const splitName = f.split('-')
         const name = splitName[0] + path.extname(f)
@@ -74,5 +73,8 @@ assetFiles
         fs.renameSync(path.join(assetsPath, f), path.join(assetsPath, name), () => {})
     })
 
+indexHtml += '<script type="module">'
+indexHtml += js
+indexHtml += '</script>'
+
 fs.writeFileSync(indexHtmlPath, indexHtml)
-fs.writeFileSync(path.join(assetsPath, 'index.js'), js)

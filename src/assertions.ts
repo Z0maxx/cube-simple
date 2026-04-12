@@ -1,5 +1,3 @@
-import { ColorString } from "./types"
-
 export class AssertionError extends Error {
     constructor(asserts: string, value: unknown) {
         if (value instanceof HTMLElement) {
@@ -22,27 +20,15 @@ function isHTMLCanvasElement(value: unknown): asserts value is HTMLCanvasElement
     }
 }
 
-function isHTMLVideoElement(value: unknown): asserts value is HTMLVideoElement {
-    if (!(value instanceof HTMLVideoElement)) {
-        throw new AssertionError(HTMLVideoElement.name, value)
-    }
-}
-
-function isHTMLDialogElement(value: unknown): asserts value is HTMLDialogElement {
-    if (!(value instanceof HTMLDialogElement)) {
-        throw new AssertionError(HTMLDialogElement.name, value)
-    }
-}
-
 function isHTMLInputElement(value: unknown): asserts value is HTMLInputElement {
     if (!(value instanceof HTMLInputElement)) {
         throw new AssertionError(HTMLInputElement.name, value)
     }
 }
 
-function isColorString(value: unknown): asserts value is ColorString {
-    if ( !(typeof value === 'string' && ['red', 'orange', 'blue', 'white', 'green', 'yellow'].includes(value))) {
-        throw new AssertionError('ColorString', value)
+function isHTMLElement(value: unknown): asserts value is HTMLElement {
+    if (!(value instanceof HTMLElement)) {
+        throw new AssertionError(HTMLInputElement.name, value)
     }
 }
 
@@ -56,22 +42,12 @@ export function assertHTMLCanvasElement(value: unknown): HTMLCanvasElement {
     return value
 }
 
-export function assertHTMLVideoElement(value: unknown): HTMLVideoElement {
-    isHTMLVideoElement(value)
-    return value
-}
-
-export function assertHTMLDialogElement(value: unknown): HTMLDialogElement {
-    isHTMLDialogElement(value)
-    return value
-}
-
 export function assertHTMLInputElement(value: unknown): HTMLInputElement {
     isHTMLInputElement(value)
     return value
 }
 
-export function assertColorString(value: unknown): ColorString {
-    isColorString(value)
+export function assertHTMLElement(value: unknown): HTMLElement {
+    isHTMLElement(value)
     return value
 }

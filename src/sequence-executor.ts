@@ -1,13 +1,13 @@
 import { assertExists } from "./assertions";
 import { CubeLayer, Direction, Notation, autoplay, next } from "./cube-constants";
+import { getHTMLElement } from "./element-getter";
 import { turn, turnCube, turnEnabled } from "./rotations";
 import { TDirection, TNotation, TranslatedNotation } from "./types";
 
-const solveSteps = assertExists(document.getElementById('solve-steps'))
-const previousStep = assertExists(document.getElementById('previous-step'))
-const currentStep = assertExists(document.getElementById('current-step'))
-const nextStep = assertExists(document.getElementById('next-step'))
-
+const solveSteps = getHTMLElement('#solve-steps')
+const previousStep = getHTMLElement('#previous-step')
+const currentStep = getHTMLElement('#current-step')
+const nextStep = getHTMLElement('#next-step')
 function stringNotation(notation: TNotation): string {
 	switch (notation) {
 		case Notation.L:
@@ -279,6 +279,8 @@ autoplay.addEventListener('change', _ => {
 next.addEventListener('input', executeNextStep)
 
 export function setupSequence(sequence: Array<TNotation>): void {
+    if (sequence.length === 0) return
+
 	sequenceIdx = 0
 	currentSequence = sequence
 	solveSteps.style.display = 'flex'

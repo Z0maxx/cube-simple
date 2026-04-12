@@ -7,6 +7,130 @@ import { turn, turnCube, turnEnabled, turnTime } from './rotations'
 import './tw.css'
 import { TCubeLayer, TDirection } from './types'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { getHTMLElement } from './element-getter'
+
+let width = Math.min(document.body.clientWidth, window.innerWidth)
+let mobile = width < 640
+let smMd = width >= 640 && width < 1024
+function minSmMdWidth() {
+    return width / 2
+}
+
+function mobileMinHeight() {
+    return window.innerHeight / 3
+}
+
+let smMdWidth = minSmMdWidth()
+function getSceneWidth() {
+    if (smMd) {
+        return smMdWidth
+    }
+
+    return width
+}
+
+let mobileHeight = mobileMinHeight()
+const style = window.getComputedStyle(document.body)
+const canvasMarginTop =
+    parseInt(canvas.className.split(' ').find(c => c.startsWith('mt-'))?.split('mt-')[1] ?? '0') *
+    parseFloat(style.getPropertyValue('--spacing').split(' ')[0]) *
+    parseInt(style.fontSize.replace('px', ''))
+
+function getSceneHeight() {
+    if (mobile) {
+        return mobileHeight
+    }
+    else if (smMd) {
+        return Math.min(window.innerHeight, width * 0.65) - canvasMarginTop
+    }
+
+    return window.innerHeight
+}
+
+const camera = new THREE.PerspectiveCamera(mobile ? 40 : 50, getSceneWidth() / getSceneHeight(), 0.1, 1000)
+
+function setCameraPosition() {
+    camera.position.x = -3
+    camera.position.y = 3
+    camera.lookAt(0, 0, 0)
+
+    if (mobile || smMd) {
+        camera.position.setZ(6.5)
+    }
+    else {
+        camera.position.setZ(7.5)
+    }
+}
+
+setCameraPosition()
+window.addEventListener('resize', () => {
+    width = Math.min(document.body.clientWidth, window.innerWidth)
+    mobileHeight = mobileMinHeight()
+    smMdWidth = minSmMdWidth()
+    updateSceneSize()
+    setCameraPosition()
+    touchEnd()
+})
+
+const canvasDrag = getHTMLElement('#canvas-drag')
+const canvasDragLine = getHTMLElement('#canvas-drag-line')
+function touchMove(e: TouchEvent) {
+    e.preventDefault()
+    if (mobile) {
+        const clientY = e.touches[0].clientY - canvasDrag.clientHeight / 2
+        if (clientY <= mobileMinHeight() + canvasMarginTop || clientY >= window.innerHeight - 40) {
+            return
+        }
+
+        mobileHeight = clientY - canvasMarginTop
+    }
+    else if (smMd) {
+        const clientX = e.touches[0].clientX
+        if (clientX >= minSmMdWidth() || clientX <= 5) {
+            return
+        }
+
+        smMdWidth = window.innerWidth - clientX
+    }
+    
+    updateSceneSize()
+}
+
+function touchEnd() {
+    window.removeEventListener('touchmove', touchMove)
+    window.removeEventListener('touchend', touchEnd)
+}
+
+canvasDrag.addEventListener('touchstart', (e: Event) => {
+    const touch = e as TouchEvent
+    if (touch.touches.length > 1) return
+
+    e.preventDefault()
+    window.addEventListener('touchmove', touchMove, { passive: false })
+    window.addEventListener('touchend', touchEnd)
+}, { passive: false })
+
+const controlsWrapper = getHTMLElement('#controls')
+function updateSceneSize() {
+    mobile = width < 640
+    smMd = width >= 640 && width < 1024
+    const sceneHeight = getSceneHeight()
+    const sceneWidth = getSceneWidth()
+    camera.aspect = sceneWidth / sceneHeight
+    renderer.setSize(sceneWidth, sceneHeight)
+    camera.updateProjectionMatrix()
+    if (mobile) {
+        const dragStyle = `top: ${sceneHeight + canvasMarginTop}px`
+        canvasDragLine.setAttribute('style', dragStyle)
+        controlsWrapper.setAttribute('style', `--canvasHeight: ${sceneHeight}px`)
+    }
+    else if (smMd) {
+        const dragStyle = `right: ${sceneWidth - 5}px`
+        canvasDragLine.setAttribute('style', dragStyle)
+    }
+}
+
+updateSceneSize()
 
 const ambientLight = new THREE.AmbientLight('white')
 
@@ -25,37 +149,6 @@ light3.position.set(0, -3, -3)
 const scene = new THREE.Scene()
 scene.background = new THREE.Color().setColorName('mediumslateblue')
 scene.add(ambientLight, light1, light2, light3)
-
-let width = Math.min(document.body.clientWidth, window.innerWidth)
-let mobile = width < 640
-let smMd = width >= 640 && width < 1024
-function getSceneWidth() {
-    if (smMd) {
-        return width / 2
-    }
-
-    return width
-}
-
-const style = window.getComputedStyle(document.body)
-const canvasMarginTop =
-    parseInt(canvas.className.split(' ').find(c => c.startsWith('mt-'))?.split('mt-')[1] ?? '0') *
-    parseFloat(style.getPropertyValue('--spacing').split(' ')[0]) *
-    parseInt(style.fontSize.replace('px', ''))
-
-function getSceneHeight() {
-    if (mobile) {
-        return window.innerHeight / 3
-    }
-    else if (smMd) {
-        return Math.min(window.innerHeight, width * 0.65) - canvasMarginTop
-    }
-
-    return window.innerHeight
-}
-
-const camera = new THREE.PerspectiveCamera(mobile ? 40 : 50, getSceneWidth() / getSceneHeight(), 0.1, 1000)
-camera.position.setZ(7.5)
 
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(getSceneWidth(), getSceneHeight())
@@ -231,8 +324,6 @@ for (let i = 0; i < 3; i++) {
 }
 
 scene.add(layers)
-scene.rotateX(0.45)
-scene.rotateY(0.5)
 
 const controls = new OrbitControls(camera, renderer.domElement)
 function animate() {
@@ -287,8 +378,7 @@ function setParallax() {
     });
 }
 
-
-const cubeControls = assertExists(document.getElementById('cube-controls'))
+const cubeControls = getHTMLElement('#cube-controls')
 for (const controlWrap of cubeControls.children) {
     for (const control of controlWrap.children) {
         control.addEventListener('mousedown', () => {
@@ -310,7 +400,7 @@ for (const controlWrap of cubeControls.children) {
     }
 }
 
-const layerControls = assertExists(document.getElementById('layer-controls'))
+const layerControls = getHTMLElement('#layer-controls')
 for (const controlWrap of layerControls.children) {
     for (const control of controlWrap.children) {
         let names = control.id.split('-')
@@ -320,23 +410,8 @@ for (const controlWrap of layerControls.children) {
     }
 }
 
-window.addEventListener('resize', () => {
-    updateSceneSize()
-})
-
-function updateSceneSize() {
-    width = Math.min(document.body.clientWidth, window.innerWidth)
-    mobile = width < 640
-    smMd = width >= 640 && width < 1024
-    camera.aspect = getSceneWidth() / getSceneHeight()
-    renderer.setSize(getSceneWidth(), getSceneHeight())
-    camera.updateProjectionMatrix()
-}
-
-updateSceneSize()
-
-assertExists(document.getElementById('parallax')).addEventListener('click', setParallax)
+getHTMLElement('#parallax').addEventListener('click', setParallax)
 setOpacity(100)
 
 initCubeSolver()
-assertExists(document.querySelector('#canvas-loader')).remove()
+getHTMLElement('#canvas-loader').remove()

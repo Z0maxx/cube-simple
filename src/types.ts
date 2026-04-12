@@ -16,8 +16,6 @@ export type TColorNumber = typeof ColorNumber[keyof typeof ColorNumber]
 
 export type TNotation = typeof Notation[keyof typeof Notation]
 
-export type ColorString = 'red' | 'orange' | 'blue' | 'white' | 'green' | 'yellow' | 'black'
-
 export type Move = {
     targetCube: TCube
     targetSides: Array<TSide>
@@ -37,89 +35,23 @@ export type TranslatedNotation = {
     cubeLayer?: TCubeLayer
 }
 
-export type SelectedVideo = 'normal' | 'avg-corrected' | 'max-corrected' | 'p-norm-corrected' | 'auto-detect' | 'auto-detect-start'
-
-export type AvgColorWorkerMessage = {
-    rgbData: Uint8ClampedArray
-    size: number
-    colorIdx: number
-    p?: number
-}
-
-export type CorrectionWorkerCanvases = {
-    normalCanvas: OffscreenCanvas
-    correctedCanvas: OffscreenCanvas
-    width: number
-    height: number
-}
-
-export type IdentifierWorkerCanvases = {
-    normalCanvas: OffscreenCanvas
-    correctedCanvas: OffscreenCanvas
-    resultCanvas: OffscreenCanvas
-    width: number
-    height: number
-}
-
-export type WorkerCorrection = {
-    bitmap: ImageBitmap
-    selectedVideo: SelectedVideo
-}
-
-export type CorrectionWorkerMessage = CorrectionWorkerCanvases | WorkerCorrection | SelectedVideo | number
-
-export type CorrectionWorkerResponse = Uint8ClampedArray | SelectedVideo | number
-
-export type IdentifierWorkerMessage = IdentifierWorkerCanvases | Uint8ClampedArray
-
-export type CubeResultImage = {
-    pixels: string
-    colors: Array<string>
-    resultWidth: number
-    resultHeight: number
-}
-
-export type CornerColoredSides = {
-    layer: TLayer
-    cube: TCube
-    sides: [TSide, TSide, TSide]
-}
-
-export type EdgeColoredSides = {
-    layer: TLayer
-    cube: TCube
-    sides: [TSide, TSide]
-}
-
-export type CenterColoredSide = {
-    layer: TLayer
-    cube: TCube
-    side: TSide
-}
-
 export type CubeSolve = {
     moves: Array<TNotation>
     error: string
-}
-
-export type Colors = Array<Array<Array<ColorString>>>
-
-export type CenterPossibleNeighborColors = {
-    color: ColorString,
-    neighborColors: [ColorString, ColorString, ColorString, ColorString],
-    pairColor: ColorString
 }
 
 export type SolverWorkerMessage = {
     threadIdx: number
     wasmScript: string
     whiteCross: boolean
+    longestSequence: boolean
     cubeColorNumbers: Array<Array<Array<TColorNumber>>>
 }
 
 export type SolverWorkerResponse = {
     threadIdx: number
     cubeSolve: CubeSolve
+    isWhite?: boolean
 }
 
 export type WasmModule = {

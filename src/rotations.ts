@@ -3,13 +3,13 @@ import * as THREE from 'three'
 import { Color, Cube, CubeLayer, Direction, Layer, Orientation, Side, autoplay, cubeColors, innerCubeMaterials, layers, next } from "./cube-constants"
 import { rotateFaceColorsXDownCenterMoves, rotateFaceColorsXDownCornerMoves, rotateFaceColorsXDownEdgeMoves, rotateFaceColorsXUpCenterMoves, rotateFaceColorsXUpCornerMoves, rotateFaceColorsXUpEdgeMoves, rotateFaceColorsYLeftCenterMoves, rotateFaceColorsYLeftCornerMoves, rotateFaceColorsYLeftEdgeMoves, rotateFaceColorsYRightCenterMoves, rotateFaceColorsYRightCornerMoves, rotateFaceColorsYRightEdgeMoves, rotateLayerColorsLeftCornerMoves, rotateLayerColorsLeftEgdeMoves, rotateLayerColorsRightCornerMoves, rotateLayerColorsRightEgdeMoves } from "./moves"
 import { Move, MoveWithLayer, TCubeLayer, TDirection, TLayer, TOriention, TSide } from "./types"
-import { assertHTMLInputElement } from "./assertions"
 import { innerCubeBlackMaterial } from "./materials"
+import { getHTMLInputElement } from "./element-getter"
 
 const turnTimes = [0.1, 0.2, 0.3, 0.4]
 export let turnTime = 0.3
 export let turnEnabled = true
-const turnSpeed = assertHTMLInputElement(document.querySelector('#turn-speed'))
+const turnSpeed = getHTMLInputElement('#turn-speed')
 turnSpeed.addEventListener('input', () => {
     setTurnTime(turnTimes[parseInt(turnSpeed.value)])
 })
