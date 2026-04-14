@@ -4,7 +4,8 @@ import { getHTMLElement } from "./element-getter";
 import { turn, turnCube, turnEnabled } from "./rotations";
 import { TDirection, TNotation, TranslatedNotation } from "./types";
 
-const solveSteps = getHTMLElement('#solve-steps')
+const stepsLeft = getHTMLElement('#steps-left')
+const solveStepsWrap = getHTMLElement('#solve-steps-wrap')
 const previousStep = getHTMLElement('#previous-step')
 const currentStep = getHTMLElement('#current-step')
 const nextStep = getHTMLElement('#next-step')
@@ -210,6 +211,7 @@ let sequenceIdx = 0
 let currentSequence: Array<TNotation>
 
 function setSolveStepsText() {
+    stepsLeft.innerText = sequenceIdx < currentSequence.length ? (sequenceIdx + 1).toString() : ''
 	previousStep.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="size-3 rotate-180 fill-black dark:fill-white" version="1.1" viewBox="0 0 512.003 512.003" xml:space="preserve">
             <g>
@@ -233,6 +235,7 @@ function setSolveStepsText() {
 	if (sequenceIdx < currentSequence.length - 1) {
 		nextStep.innerHTML = `${stringNotation(currentSequence[sequenceIdx + 1])} ${nextStep.innerHTML}`
 	}
+    
 }
 
 function executeNextStep() {
@@ -240,28 +243,26 @@ function executeNextStep() {
 		const move = translateNotation(currentSequence[sequenceIdx])
 		if (move.layer) {
 			const cubeLayer = assertExists(move.cubeLayer)
-			turn(cubeLayer, move.direction, move.twice);
+			turn(cubeLayer, move.direction, move.twice, setSolveStepsText);
 		}
 		else {
-			turnCube(move.direction, move.twice)
+			turnCube(move.direction, move.twice, setSolveStepsText)
 		}
 		sequenceIdx++
-		setSolveStepsText()
 	}
 }
 
 function executePreviousStep() {
 	if (currentSequence && sequenceIdx > 0 && turnEnabled) {
 		sequenceIdx--
-		setSolveStepsText()
 		const move = translateNotation(currentSequence[sequenceIdx])
 		move.direction = reversedDirection(move.direction)
 		if (move.layer) {
 			const cubeLayer = assertExists(move.cubeLayer)
-			turn(cubeLayer, move.direction, move.twice);
+			turn(cubeLayer, move.direction, move.twice, setSolveStepsText);
 		}
 		else {
-			turnCube(move.direction, move.twice)
+			turnCube(move.direction, move.twice, setSolveStepsText)
 		}
 	}
 }
@@ -283,7 +284,7 @@ export function setupSequence(sequence: Array<TNotation>): void {
 
 	sequenceIdx = 0
 	currentSequence = sequence
-	solveSteps.style.display = 'flex'
+	solveStepsWrap.removeAttribute('style')
 	setSolveStepsText()
 	if (autoplay.checked) {
 		executeNextStep()

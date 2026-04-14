@@ -23,7 +23,7 @@ function setTurnTime(time: number) {
 
 let wasTwiceCube: boolean
 
-export function turnCube(direction: TDirection, twice?: boolean) {
+export function turnCube(direction: TDirection, twice: boolean, callback?: () => any) {
     if (turnEnabled) {
         turnEnabled = false
         let axis: TOriention
@@ -92,11 +92,17 @@ export function turnCube(direction: TDirection, twice?: boolean) {
 
             turnEnabled = true
             
-            if (!twice && autoplay.checked) {
-                next.dispatchEvent(new InputEvent('input'))
+            if (!twice) {
+                if (autoplay.checked) {
+                    next.dispatchEvent(new InputEvent('input'))
+                }
+
+                if (callback) {
+                    callback()
+                }
             }
             if (twice) {
-                turnCube(direction)
+                turnCube(direction, false, callback)
             }
             if (wasTwiceCube) {
                 setTurnTime(turnTime / 0.7)
@@ -108,7 +114,7 @@ export function turnCube(direction: TDirection, twice?: boolean) {
 
 let wasTwiceLayer: boolean
 
-export function turn(layer: TCubeLayer, direction: TDirection, twice?: boolean) {
+export function turn(layer: TCubeLayer, direction: TDirection, twice: boolean, callback?: () => any) {
     turnEnabled = false
 
     if (layer == CubeLayer.FRONT || layer == CubeLayer.BACK || layer == CubeLayer.S) {
@@ -169,11 +175,17 @@ export function turn(layer: TCubeLayer, direction: TDirection, twice?: boolean) 
 
         orientLayersZ();
 
-        if (!twice && autoplay.checked) {
-            next.dispatchEvent(new InputEvent('input'))
+        if (!twice) {
+            if (autoplay.checked) {
+                next.dispatchEvent(new InputEvent('input'))
+            }
+            
+            if (callback) {
+                callback()
+            }
         }
         if (twice) {
-            turn(layer, direction)
+            turn(layer, direction, false, callback)
         }
         if (wasTwiceLayer) {
             setTurnTime(turnTime / 0.7)

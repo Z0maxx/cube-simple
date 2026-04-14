@@ -17,13 +17,15 @@ input {
 }
 
 #settings label {
-    background-color: var(--color-red-200);
-    border-color: var(--color-red-400);
+    background: linear-gradient(to top, var(--color-rose-300) 50%, var(--color-rose-100));
+    border-color: var(--color-rose-400);
+    opacity: 0.6;
     user-select: none;
 }
 
 #settings label:has(input:checked) {
-    background-color: var(--color-green-200);
+    background: linear-gradient(to top, var(--color-green-300) 50%, var(--color-green-100));
+    opacity: 1;
     border-color: var(--color-green-400)
 }
 
@@ -34,7 +36,7 @@ input {
 #solve-steps>* {
     border-width: 4px;
     border-style: solid;
-    border-radius: calc(var(--spacing) * 2);
+    border-radius: var(--radius-lg);
     padding: calc((var(--spacing) * 0.5));
     font-weight: bold;
 }
@@ -56,35 +58,35 @@ input {
 }
 
 #control-f button {
-    border-color: var(--color-yellow-400);
-    background-color: var(--color-yellow-200);
+    border-color: var(--color-orange-500);
+    background: linear-gradient(to top, var(--color-orange-300) 50%, var(--color-orange-100));
 }
 
 #control-f button:hover {
-    border-color: var(--color-yellow-500);
+    border-color: var(--color-orange-600);
 }
 
 #control-b button {
-    border-color: var(--color-yellow-500);
-    background-color: var(--color-yellow-300);
+    border-color: var(--color-amber-500);
+    background: linear-gradient(to top, var(--color-amber-300) 50%, var(--color-amber-100));
 }
 
 #control-b button:hover {
-    border-color: var(--color-yellow-600);
+    border-color: var(--color-amber-600);
 }
 
 #control-l button {
-    border-color: var(--color-emerald-400);
-    background-color: var(--color-emerald-200);
+    border-color: var(--color-green-500);
+    background: linear-gradient(to top, var(--color-green-300) 50%, var(--color-green-100));
 }
 
 #control-l button:hover {
-    border-color: var(--color-emerald-500);
+    border-color: var(--color-green-600);
 }
 
 #control-r button {
     border-color: var(--color-emerald-500);
-    background-color: var(--color-emerald-300);
+    background: linear-gradient(to top, var(--color-emerald-300) 50%, var(--color-emerald-100));
 }
 
 #control-r button:hover {
@@ -92,17 +94,17 @@ input {
 }
 
 #control-u button {
-    border-color: var(--color-fuchsia-400);
-    background-color: var(--color-fuchsia-200);
+    border-color: var(--color-pink-500);
+    background: linear-gradient(to top, var(--color-pink-300) 50%, var(--color-pink-100));
 }
 
 #control-u button:hover {
-    border-color: var(--color-fuchsia-500);
+    border-color: var(--color-pink-600);
 }
 
 #control-d button {
     border-color: var(--color-fuchsia-500);
-    background-color: var(--color-fuchsia-300);
+    background: linear-gradient(to top, var(--color-fuchsia-300) 50%, var(--color-fuchsia-100));
 }
 
 #control-d button:hover {
@@ -110,73 +112,73 @@ input {
 }
 
 #control-m button {
-    border-color: var(--color-sky-400);
-    background-color: var(--color-sky-200);
+    border-color: var(--color-sky-500);
+    background: linear-gradient(to top, var(--color-sky-300) 50%, var(--color-sky-100));
 }
 
 #control-m button:hover {
-    border-color: var(--color-sky-500);
+    border-color: var(--color-sky-600);
 }
 
 #control-e button {
-    border-color: var(--color-cyan-400);
-    background-color: var(--color-cyan-200);
+    border-color: var(--color-cyan-500);
+    background: linear-gradient(to top, var(--color-cyan-300) 50%, var(--color-cyan-100));
 }
 
 #control-e button:hover {
-    border-color: var(--color-cyan-500);
+    border-color: var(--color-cyan-600);
 }
 
 #control-s button {
-    border-color: var(--color-teal-400);
-    background-color: var(--color-teal-200);
+    border-color: var(--color-teal-500);
+    background: linear-gradient(to top, var(--color-teal-300) 50%, var(--color-teal-100));
 }
 
 #control-s button:hover {
-    border-color: var(--color-teal-500);
+    border-color: var(--color-teal-600);
 }
 
 #control-x button {
-    border-color: var(--color-slate-400);
-    background-color: var(--color-slate-200);
+    border-color: var(--color-slate-600);
+    background: linear-gradient(to top, var(--color-slate-400) 50%, var(--color-slate-200));
 }
 
 #control-x button:hover {
-    border-color: var(--color-slate-500);
+    border-color: var(--color-slate-700);
 }
 
 #control-y button {
-    border-color: var(--color-olive-400);
-    background-color: var(--color-olive-200);
+    border-color: var(--color-olive-600);
+    background: linear-gradient(to top, var(--color-olive-400) 50%, var(--color-olive-200));
 }
 
 #control-y button:hover {
-    border-color: var(--color-olive-500);
+    border-color: var(--color-olive-700);
 }
 
 #control-z button {
-    border-color: var(--color-mauve-400);
-    background-color: var(--color-mauve-200);
+    border-color: var(--color-mauve-600);
+    background: linear-gradient(to top, var(--color-mauve-400) 50%, var(--color-mauve-200));
 }
 
 #control-z button:hover {
-    border-color: var(--color-mauve-500);
+    border-color: var(--color-mauve-700);
 }
 
 html.dark {
     #control-f button {
-        border-color: var(--color-orange-900);
-        background-color: var(--color-orange-700);
+        border-color: var(--color-orange-950);
+        background: linear-gradient(to top, var(--color-amber-800) 50%, var(--color-orange-600));
         color: white
     }
 
     #control-f button:hover {
-        border-color: var(--color-orange-800);
+        border-color: var(--color-orange-900);
     }
 
     #control-b button {
-        border-color: var(--color-orange-950);
-        background-color: var(--color-orange-800);
+        border-color: var(--color-amber-950);
+        background: linear-gradient(to top, var(--color-amber-800) 50%, var(--color-amber-600));
         color: white
     }
 
@@ -185,18 +187,18 @@ html.dark {
     }
 
     #control-l button {
-        border-color: var(--color-emerald-900);
-        background-color: var(--color-emerald-700);
+        border-color: var(--color-green-950);
+        background: linear-gradient(to top, var(--color-green-800) 50%, var(--color-green-600));
         color: white
     }
 
     #control-l button:hover {
-        border-color: var(--color-emerald-800);
+        border-color: var(--color-green-900);
     }
 
     #control-r button {
         border-color: var(--color-emerald-950);
-        background-color: var(--color-emerald-800);
+        background: linear-gradient(to top, var(--color-emerald-800) 50%, var(--color-emerald-600));
         color: white
     }
 
@@ -205,18 +207,18 @@ html.dark {
     }
 
     #control-u button {
-        border-color: var(--color-fuchsia-900);
-        background-color: var(--color-fuchsia-700);
+        border-color: var(--color-purple-950);
+        background: linear-gradient(to top, var(--color-purple-800) 50%, var(--color-purple-600));
         color: white
     }
 
     #control-u button:hover {
-        border-color: var(--color-fuchsia-800);
+        border-color: var(--color-purple-900);
     }
 
     #control-d button {
         border-color: var(--color-fuchsia-950);
-        background-color: var(--color-fuchsia-800);
+        background: linear-gradient(to top, var(--color-fuchsia-800) 50%, var(--color-fuchsia-600));
         color: white
     }
 
@@ -226,7 +228,7 @@ html.dark {
 
     #control-m button {
         border-color: var(--color-sky-950);
-        background-color: var(--color-sky-800);
+        background: linear-gradient(to top, var(--color-sky-800) 50%, var(--color-sky-600));
         color: white
     }
 
@@ -236,7 +238,7 @@ html.dark {
 
     #control-e button {
         border-color: var(--color-cyan-950);
-        background-color: var(--color-cyan-800);
+        background: linear-gradient(to top, var(--color-cyan-800) 50%, var(--color-cyan-600));
         color: white
     }
 
@@ -246,7 +248,7 @@ html.dark {
 
     #control-s button {
         border-color: var(--color-teal-950);
-        background-color: var(--color-teal-800);
+        background: linear-gradient(to top, var(--color-teal-800) 50%, var(--color-teal-600));
         color: white
     }
 
@@ -255,8 +257,8 @@ html.dark {
     }
 
     #control-x button {
-        border-color: var(--color-slate-900);
-        background-color: var(--color-slate-700);
+        border-color: var(--color-slate-950);
+        background: linear-gradient(to top, var(--color-slate-700) 50%, var(--color-slate-500));
         color: white
     }
 
@@ -265,18 +267,18 @@ html.dark {
     }
 
     #control-y button {
-        border-color: var(--color-olive-900);
-        background-color: var(--color-olive-700);
+        border-color: var(--color-olive-950);
+        background: linear-gradient(to top, var(--color-olive-700) 50%, var(--color-olive-500));
         color: white
     }
 
     #control-y button:hover {
-        border-color: var(--color-olive-900);
+        border-color: var(--color-olive-800);
     }
 
     #control-z button {
-        border-color: var(--color-mauve-900);
-        background-color: var(--color-mauve-700);
+        border-color: var(--color-mauve-950);
+        background: linear-gradient(to top, var(--color-mauve-700) 50%, var(--color-mauve-500));
         color: white
     }
 
@@ -285,25 +287,27 @@ html.dark {
     }
 
     #settings label {
-        background-color: var(--color-red-900);
-        border-color: var(--color-red-950);
+        background: linear-gradient(to top, var(--color-rose-900) 50%, var(--color-rose-700));
+        border-color: var(--color-rose-950);
+        opacity: 0.6;
         user-select: none;
         color: white
     }
 
     #settings label:has(input:checked) {
-        background-color: var(--color-green-900);
+        background: linear-gradient(to top, var(--color-green-900) 50%, var(--color-green-700));
+        opacity: 1;
         border-color: var(--color-green-950)
     }
 
     #solve-steps>* {
-        background-color: var(--color-purple-800);
-        border-color: var(--color-purple-950);
+        background: linear-gradient(to top, var(--color-violet-800) 50%, var(--color-violet-600));
+        border-color: var(--color-violet-950);
         color: white
     }
 
     #solve-steps>button:hover {
-        border-color: var(--color-purple-900);
+        border-color: var(--color-violet-900);
     }
 }
 
@@ -311,20 +315,12 @@ html.dark {
     justify-content: center;
     align-items: center;
     width: 100%;
-    background-color: var(--color-purple-300);
+    background: linear-gradient(to top, var(--color-purple-300) 50%, var(--color-purple-100));
     border-color: var(--color-purple-500);
 }
 
 #solve-steps>button:hover {
     border-color: var(--color-purple-600);
-}
-
-.text-border-light {
-    text-shadow:
-        -1px -1px var(--text-border-color),
-        -1px 1px var(--text-border-color),
-        1px -1px var(--text-border-color),
-        1px 1px var(--text-border-color);
 }
 
 #info:checked+div {

@@ -13,7 +13,7 @@
     </script>
 </head>
 
-<body class="bg-[mediumslateblue] flex flex-col sm:flex-row-reverse items-center sm:items-start h-full w-full dark:bg-indigo-900">
+<body class="bg-[mediumslateblue] flex flex-col sm:flex-row-reverse items-center sm:items-start h-full w-full dark:bg-indigo-950">
     <button class="absolute top-20 sm:top-auto sm:bottom-1.5 left-1.5 sm:left-auto sm:right-1.5 size-6 lg:size-8 rounded-full overflow-hidden" id="dark-toggle">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 433 433" xml:space="preserve" class="scale-105 bg-yellow-100 rounded-full fill-indigo-900 dark:hidden">
             <g>
@@ -51,7 +51,7 @@
             </svg>
         </div>
     </div>
-    <div id="controls" class="lg:absolute top-2.5 left-2.5 flex flex-col gap-2 sm:gap-1.5 p-2 lg:p-0 overflow-auto max-h-[calc(100svh-3rem-var(--canvasHeight))] [--canvasHeight:100svh/3] sm:max-h-[100svh] bg-indigo-400 dark:bg-indigo-800 dark:lg:bg-transparent lg:bg-transparent">
+    <div id="controls" class="lg:absolute top-2.5 left-2.5 flex flex-col gap-2 sm:gap-1.5 p-2 lg:p-0 overflow-auto max-h-[calc(100svh-3rem-var(--canvasHeight))] [--canvasHeight:100svh/3] sm:max-h-[100svh] bg-indigo-400 dark:bg-indigo-900 dark:lg:bg-transparent lg:bg-transparent">
         <span class="text-xl text-center text-white text-medium sm:text-left">Face Controls</span>
         <div id="layer-controls" class="flex-wrap justify-center w-full sm:justify-normal lg:w-80">
             <div id="control-f">
@@ -120,14 +120,14 @@
         </div>
         <div id="solve-wrap" class="flex-col w-full mt-4 lg:w-80">
             <div>
-                <button id="solve" class="relative text-2xl w-full bg-lime-400 dark:bg-emerald-800 dark:border-emerald-900 border-lime-500 text-border-light text-white [--text-border-color:black] h-16 hover:bg-lime-300 dark:hover:bg-emerald-700">Solve</button>
+                <button id="solve" class="relative text-2xl w-full bg-gradient-to-t to-lime-200 from-50% from-lime-400 dark:to-emerald-600 dark:from-emerald-800 dark:border-emerald-900 border-lime-500 text-sky-700 dark:text-amber-300 h-16 hover:from-lime-300 dark:hover:from-emerald-700">Solve</button>
             </div>
             <div id="settings" class="flex-wrap">
                 <label for="autoplay">Autoplay<input id="autoplay" type="checkbox" checked></label>
                 <label for="white-cross">White Cross<input id="white-cross" type="checkbox"></label>
                 <label for="parallax">Parallax Mapping<input id="parallax" type="checkbox"></label>
                 <label for="longest-sequence">Longest Sequence<input id="longest-sequence" type="checkbox"></label>
-                <div class="bg-slate-200 border-slate-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                <div class="bg-gradient-to-t to-slate-200 from-slate-400 border-slate-500 dark:from-slate-700 from-50% dark:to-slate-500 dark:border-slate-600 dark:text-white">
                     <span>Turn Speed</span>
                     <input type="range" min="0" max="3" value="2" id="turn-speed" class="w-20">
                 </div>
@@ -136,14 +136,18 @@
     </div>
     <div id="solve-loader" class="absolute z-50 flex items-center justify-center hidden w-full h-full gap-1.5 flex-col pointer-events-none solve-loader-wrap backdrop-blur-sm bg-blue-300/10">
     </div>
-    <div class="absolute top-2.5 right-0 flex justify-center w-full pointer-events-none sm:w-[50%] lg:w-full">
-        <div id="solve-steps" class="pointer-events-auto w-45 lg:w-60" style="display: none">
+    <div id="solve-steps-wrap" class="absolute top-2.5 right-0 flex justify-center w-full pointer-events-none sm:w-[50%] lg:w-full" style="display: none">
+        <div id="solve-steps" class="pointer-events-auto w-52">
             <button id="previous-step"></button>
-            <div id="current-step"></div><button id="next-step"></button>
+            <div id="current-step-wrap" class="relative">
+                <span id="current-step"></span>
+                <span id="steps-left" class="absolute px-[0.1rem] font-normal -top-0.5 -right-0 " style="font-size: 0.65rem;"></span>
+            </div>
+            <button id="next-step"></button>
         </div>
     </div>
     <div class="absolute top-20 sm:top-2.5 right-1.5 sm:right-2.5">
-        <label for="info" class="flex items-center justify-center text-2xl lg:text-4xl text-border-light [--text-border-color:white] text-fuchsia-500 dark:text-fuchsia-900 font-bold border-4 rounded-full size-8 lg:size-10 bg-amber-400 dark:bg-teal-700 dark:border-teal-800 border-amber-600">?</label>
+        <label for="info" class="flex items-center justify-center text-2xl lg:text-4xl text-fuchsia-500 dark:text-yellow-200 font-bold border-4 rounded-full size-8 lg:size-10 bg-gradient-to-t from-amber-400 to-amber-200 from-50% dark:from-teal-700 dark:to-teal-500 dark:border-teal-800 border-amber-600">?</label>
     </div>
     <input type="checkbox" id="info" class="hidden">
     <div class="hidden py-1 px-2 absolute top-30 sm:top-12 lg:top-18 right-2.5 bg-amber-200 dark:bg-teal-900 border-4 dark:border-teal-950 dark:text-white border-amber-400 rounded-sm w-[95%] lg:w-1/2 z-50 overflow-auto max-h-[calc(100svh-8.5rem)] sm:max-h-[calc(100svh-5.5rem)] lg:max-h-none">
