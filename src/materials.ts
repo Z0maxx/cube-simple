@@ -14,21 +14,9 @@ import fragment from './shaders/fragment.glsl'
 //@ts-ignore
 import vertex from './shaders/vertex.glsl'
 //@ts-ignore
-import redKtx2 from './textures/red_cube.ktx2'
-//@ts-ignore
 import whiteKtx2 from './textures/white_cube.ktx2'
-//@ts-ignore
-import blueKtx2 from './textures/blue_cube.ktx2'
-//@ts-ignore
-import orangeKtx2 from './textures/orange_cube.ktx2'
-//@ts-ignore
-import yellowKtx2 from './textures/yellow_cube.ktx2'
-//@ts-ignore
-import greenKtx2 from './textures/green_cube.ktx2'
-//@ts-ignore
-import blackKtx2 from './textures/black_cube.ktx2'
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
-import { renderer } from './cube-constants'
+import { Color, renderer } from './cube-constants'
 
 export const cubeAlphaMap = new THREE.TextureLoader().load(cubeAlphaMapUrl)
 
@@ -345,23 +333,12 @@ const ktx2Loader = new KTX2Loader()
     .setTranscoderPath('https://raw.githubusercontent.com/Z0maxx/cube-simple/main/src/basis/')
     .detectSupport(renderer)
 
-function loadKtx2(ktx2Url: string) {
-    return ktx2Loader.loadAsync(ktx2Url)
-}
-
-const cubeMaps = await Promise.all([
-    loadKtx2(whiteKtx2),
-    loadKtx2(redKtx2),
-    loadKtx2(orangeKtx2),
-    loadKtx2(blueKtx2),
-    loadKtx2(greenKtx2),
-    loadKtx2(yellowKtx2),
-    loadKtx2(blackKtx2)
-])
+const ktx2 = await ktx2Loader.loadAsync(whiteKtx2)
 
 export const innerCubeWhiteMaterial = new THREE.ShaderMaterial({
     uniforms: {
-        cubeMap: { value: cubeMaps[0] }
+        cubeMap: { value: ktx2 },
+        tintColor: { value: new THREE.Color(...Color.WHITE) }
     },
     vertexShader: vertex,
     fragmentShader: fragment
@@ -369,7 +346,8 @@ export const innerCubeWhiteMaterial = new THREE.ShaderMaterial({
 
 export const innerCubeRedMaterial = new THREE.ShaderMaterial({
     uniforms: {
-        cubeMap: { value: cubeMaps[1] }
+        cubeMap: { value: ktx2 },
+        tintColor: { value: new THREE.Color(...Color.RED) }
     },
     vertexShader: vertex,
     fragmentShader: fragment
@@ -377,7 +355,8 @@ export const innerCubeRedMaterial = new THREE.ShaderMaterial({
 
 export const innerCubeOrangeMaterial = new THREE.ShaderMaterial({
     uniforms: {
-        cubeMap: { value: cubeMaps[2] }
+        cubeMap: { value: ktx2 },
+        tintColor: { value: new THREE.Color(...Color.ORANGE) }
     },
     vertexShader: vertex,
     fragmentShader: fragment
@@ -385,7 +364,8 @@ export const innerCubeOrangeMaterial = new THREE.ShaderMaterial({
 
 export const innerCubeBlueMaterial = new THREE.ShaderMaterial({
     uniforms: {
-        cubeMap: { value: cubeMaps[3] }
+        cubeMap: { value: ktx2 },
+        tintColor: { value: new THREE.Color(...Color.BLUE) }
     },
     vertexShader: vertex,
     fragmentShader: fragment
@@ -393,7 +373,8 @@ export const innerCubeBlueMaterial = new THREE.ShaderMaterial({
 
 export const innerCubeGreenMaterial = new THREE.ShaderMaterial({
     uniforms: {
-        cubeMap: { value: cubeMaps[4] }
+        cubeMap: { value: ktx2 },
+        tintColor: { value: new THREE.Color(...Color.GREEN) }
     },
     vertexShader: vertex,
     fragmentShader: fragment
@@ -401,7 +382,8 @@ export const innerCubeGreenMaterial = new THREE.ShaderMaterial({
 
 export const innerCubeYellowMaterial = new THREE.ShaderMaterial({
     uniforms: {
-        cubeMap: { value: cubeMaps[5] }
+        cubeMap: { value: ktx2 },
+        tintColor: { value: new THREE.Color(...Color.YELLOW) }
     },
     vertexShader: vertex,
     fragmentShader: fragment
@@ -409,7 +391,8 @@ export const innerCubeYellowMaterial = new THREE.ShaderMaterial({
 
 export const innerCubeBlackMaterial = new THREE.ShaderMaterial({
     uniforms: {
-        cubeMap: { value: cubeMaps[6] }
+        cubeMap: { value: ktx2 },
+        tintColor: { value: new THREE.Color(0.2, 0.2, 0.2) }
     },
     vertexShader: vertex,
     fragmentShader: fragment

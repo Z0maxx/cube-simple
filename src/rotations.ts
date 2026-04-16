@@ -346,7 +346,7 @@ function rotateFaceColors(cornerMoves: Array<MoveWithLayer>, edgeMoves: Array<Mo
             const materials: Array<THREE.ShaderMaterial> = []
             for (let k = 0; k < 6; k++) {
                 colors.push(Color.BLACK)
-                /materials.push(innerCubeBlackMaterial)
+                materials.push(innerCubeBlackMaterial)
             }
             newLayerColors.push(colors)
             newLayerInnerCubeMaterials.push(materials)
